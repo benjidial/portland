@@ -12,8 +12,8 @@ void kernel_main(void) {
   for (size_t i = 0; i < 2000; i++)
     buf[i] = 0x720;
 
-  char *msg = "Hello, world!";
-  for (size_t i = 0; msg[i] != '\0'; i++) {
+  uint8_t *msg = "Hello, world!";
+  for (size_t i = 0; msg[i] != 0; i++) {
     buf[row++ * 80 + col++] = 0x700 + msg[i];
     if (col == 80) {
       if (row == 25)
