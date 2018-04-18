@@ -1,3 +1,5 @@
+;Copyright 2018 Benji Dial
+
 MAGIC equ 0x1BADB002
 
 section .multiboot

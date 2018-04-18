@@ -1,6 +1,8 @@
 #include <stdint.h>
 #include <stddef.h>
 
+/*Copyright 2018 Benji Dial*/
+
 size_t row, column;
 uint8_t color;
 volatile uint16_t *buffer;
