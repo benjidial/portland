@@ -1,4 +1,4 @@
-#include "stdint.h"
+#include <stdint.h>
 /*Copyright 2018 Benji Dial*/
 
 uint8_t _char_type_map[] = {
