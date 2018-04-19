@@ -1,6 +1,6 @@
 int errno = 0;
 enum error_codes {
-  EDOM,
-  ERANGE,
-  EILSEQ
+  EDOM = 1,
+  ERANGE = 2,
+  EILSEQ = 3
 };
