@@ -9,7 +9,7 @@
 #define NULL (void *)0
 
 void *memcpy(void *destination, const void *source, size_t num) {
-  void *src_ = source, *dest_ = destination;
+  uint8_t *src_ = source, *dest_ = destination;
   while (num--)
     *(dest_++) = *(src_++);
   return destination;
@@ -24,7 +24,7 @@ void *memmove(void *destination, const void *source, size_t num) {
 */
 
 int memcmp(const void *ptr1, const void *ptr2, size_t num) {
-  void *ptr1_ = prtr, *ptr2_ = ptr2;
+  uint8_t *ptr1_ = ptr1, *ptr2_ = ptr2;
   int dif = 0;
   while (num--)
     if (dif = *(ptr1_++) - *(ptr2_++))
@@ -78,9 +78,9 @@ char *strncat(char *dest, const char *src, size_t count) {
 /*TODO: strxfrm*/
 
 size_t strlen(const char *str) {
-  char *src_ = src;
+  char *str_ = str;
   size_t len = 0;
-  while (*(src_++))
+  while (*(str_++))
     len++;
   return len;
 }
@@ -108,7 +108,7 @@ int strncmp(const char *lhs, const char *rhs, size_t count) {
 /*TODO: strcoll*/
 
 void *memchr(const void *ptr, int value, size_t num) {
-  void *ptr_ = ptr - 1;
+  uint8_t *ptr_ = ptr - 1;
   while (num--)
     if (*++ptr_ == value)
       return ptr_;
@@ -126,15 +126,15 @@ char *strchr(const char *str, int ch) {
 }
 
 char *strrchr(const char *str, int ch) {
-  char *src_ = src, ch_ = (char)ch;
-  while (*(src_++))
+  char *str_ = str, ch_ = (char)ch;
+  while (*(str_++))
     ;
   if (!ch_)
-    return src_;
-  while (*--src_ != ch_)
-    if (src_ == src)
+    return str_;
+  while (*--str_ != ch_)
+    if (str_ == str)
       return NULL;
-  return src_;
+  return str_;
 }
 
 /*TODO: strspn*/
@@ -144,7 +144,7 @@ char *strrchr(const char *str, int ch) {
 /*TODO: strtok*/
 
 void *memset(void *ptr, int value, size_t num) {
-  void *ptr_ = ptr;
+  uint8_t *ptr_ = ptr;
   while (num--)
     *(ptr_++) = value;
   return ptr;
