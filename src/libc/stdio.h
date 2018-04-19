@@ -71,8 +71,8 @@ int putchar(int character) {
 
 int _puts(const char *str) {
   uint16_t _ = (uint16_t)_color << 8;
-  for (size_t i = 0; msg[i] != 0; i++)
-    _putchar(_ + msg[i]);
+  for (size_t i = 0; str[i] != 0; i++)
+    _putchar(_ + str[i]);
 }
 
 int puts(const char *str) {
