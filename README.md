@@ -1,3 +1,4 @@
 # Portland OS
+**IMPORTANT MESSAGE GOES HERE**
+#### Version 0.2.0
 
-**IMPORTANT THING GOES HERE**
