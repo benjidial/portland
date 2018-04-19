@@ -2,6 +2,7 @@
 
 #include "errno.h"
 #include "ctype.h"
+#include "string.h"
 
 /*Copyright 2018 Benji Dial*/
 
@@ -102,22 +103,7 @@ void perror(const char *str) {
     putchar(':');
     putchar(' ');
   }
-  switch (errno) {
-   case 0:
-    puts("No error");
-    break;
-   case EDOM:
-    puts("Domain error");
-    break;
-   case ERANGE:
-    puts("Range error");
-    break;
-   case EILSEQ:
-    puts("Encoding error");
-    break;
-   default:
-    puts("Error");
-  }
+  puts(strerror(errno));
 }
 
 /*TODO: _bufSIZ*/

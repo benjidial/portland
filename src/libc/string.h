@@ -1,14 +1,36 @@
+#include <stdint.h>
+
+/*
+#include "stdlib.h"
+*/
+
 /*Copyright 2018 Benji Dial*/
 
 #define NULL (void *)0
 
-/*TODO: wchar_t*/
+void *memcpy(void *destination, const void *source, size_t num) {
+  void *src_ = source, *dest_ = destination;
+  while (num--)
+    *(dest_++) = *(src_++);
+  return destination;
+}
 
-/*TODO: wint_t*/
+/*
+void *memmove(void *destination, const void *source, size_t num) {
+  void *tmp = malloc(num);
+  memcpy(tmp, source);
+  return memcpy(destination, tmp);
+}
+*/
 
-/*TODO: wint_t*/
-
-/*TODO: mbstate_t*/
+int memcmp(const void *ptr1, const void *ptr2, size_t num) {
+  void *ptr1_ = prtr, *ptr2_ = ptr2;
+  int dif = 0;
+  while (num--)
+    if (dif = *(ptr1_++) - *(ptr2_++))
+      return dif;
+  return 0;
+}
 
 char *strcpy(char *dest, const char *src) {
   char *src_ = src, *dest_ = dest;
@@ -85,6 +107,14 @@ int strncmp(const char *lhs, const char *rhs, size_t count) {
 
 /*TODO: strcoll*/
 
+void *memchr(const void *ptr, int value, size_t num) {
+  void *ptr_ = ptr - 1;
+  while (num--)
+    if (*++ptr_ == value)
+      return ptr_;
+  return NULL;
+}
+
 char *strchr(const char *str, int ch) {
   char *str_ = str, ch_ = (char)ch;
   if (*str_ == ch_)
@@ -107,4 +137,34 @@ char *strrchr(const char *str, int ch) {
   return src_;
 }
 
-/*TODO: rest*/
+/*TODO: strspn*/
+/*TODO: strpbrk*/
+/*TODO: strcspn*/
+/*TODO: strstr*/
+/*TODO: strtok*/
+
+void *memset(void *ptr, int value, size_t num) {
+  void *ptr_ = ptr;
+  while (num--)
+    *(ptr_++) = value;
+  return ptr;
+}
+
+char *strerror(int errnum) {
+  switch (errnum) {
+   case 0:
+    return "No error";
+    break;
+   case EDOM:
+    return "Domain error";
+    break;
+   case ERANGE:
+    return "Range error";
+    break;
+   case EILSEQ:
+    return "Encoding error";
+    break;
+   default:
+    return "Error";
+  }
+}
