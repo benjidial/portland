@@ -1,4 +1,7 @@
+#include <stdbool.h>
+
 #include "errno.h"
+#include "ctype.h"
 
 /*Copyright 2018 Benji Dial*/
 
@@ -39,21 +42,43 @@ uint8_t _color;
 /*TODO: gets*/
 /*TODO: putc*/
 
+bool _putchar(uint16_t character) {
+  if (iscontrol(character % 0x0100))
+    switch (character % 0x0100) {
+     /*TODO: 0x00 - 0x07*/
+     case 0x08:
+      buf[--_pos] = (character & 0xff00) | 0x0020;
+      break;
+     /*TODO: 0x09*/
+     case 0x0a:
+      pos = (pos / 80 + 1) * 80;
+      break;
+     /*TODO: 0x0b - 0x0c*/
+     case 0x0d:
+      pos = (pos / 80) * 80;
+      break;
+     /*TODO: 0x0e - 0x1f*/
+     case 0x7f:
+      buf[_pos] = (character & 0xff0) | 0x0020;
+    }
+  buf[_pos++] = character;
+  return true;
+}
+
 int putchar(int character) {
-  buf[_pos++] = ((uint16_t)_color << 8) + (uint16_t)character;
-  return character;
+  return (_putchar(((uint16_t)_color << 8) + (uint16_t)character)) ? character : EOF;
 }
 
 int _puts(const char *str) {
   uint16_t _ = (uint16_t)_color << 8;
   for (size_t i = 0; msg[i] != 0; i++)
-    _buf[_pos++] = _ + msg[i];
+    _putchar(_ + msg[i]);
 }
 
 int puts(const char *str) {
   if (_puts(str) == EOF)
     return EOF;
-  /*TODO: \n*/
+  pos = (pos / 80 + 1) * 80;
 }
 
 /*TODO: ungetc*/
