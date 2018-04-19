@@ -40,14 +40,16 @@ uint8_t _color;
 /*TODO: putc*/
 
 int putchar(int character) {
+  /*TODO: whitespace and control*/
   buf[_pos++] = ((uint16_t)_color << 8) + (uint16_t)character;
   return character;
 }
 
 int _puts(const char *str) {
+  /*TODO: whitespace and control*/
   uint16_t _ = (uint16_t)_color << 8;
-  for (size_t i = 0; msg[i] != 0; i++)
-    _buf[_pos++] = _ + msg[i];
+  for (size_t i = 0; str[i] != 0; i++)
+    _buf[_pos++] = _ + str[i];
 }
 
 int puts(const char *str) {
