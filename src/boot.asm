@@ -13,6 +13,8 @@ align 16
 stack_bottom:
   resb 0x4000
 stack_top:
+
+gdt resb
  
 section .text
 global _start:function (_end - _start)
@@ -22,6 +24,5 @@ _start:
   extern kernel_main
   call kernel_main
 
-  cli
   hlt
 _end:

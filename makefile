@@ -12,7 +12,7 @@ bin/boot.o:
 
 bin/kernel.o:
 	mkdir -p bin
-	i386-elf-gcc -c src/main.c -o bin/kernel.o -ffreestanding
+	i386-elf-gcc -c src/kernel.c -o bin/kernel.o -ffreestanding
 
 bin/iso/boot/grub/grub.cfg:
 	mkdir -p bin
