@@ -1,4 +1,4 @@
 theme: jekyll-theme-merlot
 markdown: redcarpet
-redcarpen:
+redcarpet:
   extensions: ["tables"]
