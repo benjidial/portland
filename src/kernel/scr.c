@@ -41,11 +41,11 @@ void scr_outchar(uint8_t ch) {
 }
 
 void scr_instr(uint8_t *buffer, size_t count) {
-  for (int i = 0; i < count; i++)
+  for (size_t i = 0; i < count; i++)
     buffer[i] = scr_inchar();
 }
 
 void scr_outstr(uint8_t *buffer) {
-  for (int i = 0; buffer[i]; i++)
+  for (size_t i = 0; buffer[i]; i++)
     scr_outchar(buffer[i]);
 }

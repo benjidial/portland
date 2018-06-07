@@ -1,4 +1,4 @@
-#include "screen.c"
+#include "scr.c"
 
 /*Copyright 2018 Benji Dial*/
 
