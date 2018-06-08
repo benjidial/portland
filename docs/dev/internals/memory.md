@@ -13,3 +13,6 @@ This tries to allocate a block of memory of the specified size, returning a poin
 Signature: `void mem_dealloc(void *ptr)`
 
 This deallocates the specified block of memory.  If the block is not allocated, or is allocated to a different process, nothing is done.
+
+---
+**[Back to index](index)**

@@ -8,3 +8,6 @@ The kernel, at the moment, simply
 ## Components
 * [Memory management](memory)
 * [Text-mode I/O](screen)
+
+---
+**[Back to index](index)**

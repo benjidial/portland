@@ -37,3 +37,6 @@ This prints a single character, masked by `scr_mask` to the position defined by 
 Signature: `void scr_psz(uint8_t *buffer)`
 
 This calls `scr_pch` on each character of a null-terminated string.
+
+---
+**[Back to index](index)**
