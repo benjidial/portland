@@ -1,4 +1,4 @@
-# Text-mode I/O documentation
+# VGA driver documentation
 ## Listing
 * [`vga_pos`](#vga_pos)
 * [`vga_buf`](#vga_buf)
@@ -11,7 +11,7 @@
 ## `vga_pos`
 Signature: `size_t vga_pos`
 
-`vga_pos` stores the position of the next character to be written on the screen in the form row \* 80 + column.  At the kernel's start, this is set to zero.
+`vga_pos` stores the position of the next character to be written on the screen in the form row \* 80 + column.  `vga_buf` can be indexed with this value to find the relevant word.  At the kernel's start, this is set to zero.
 
 ## `vga_buf`
 Signature: `volatile const uint16_t *vga_buf`
