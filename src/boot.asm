@@ -1,4 +1,5 @@
 ;Copyright 2018 Benji Dial
+;Portland bootloader
 
 MAGIC equ 0x1BADB002
 

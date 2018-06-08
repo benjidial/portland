@@ -1,16 +1,17 @@
 #include <stdint.h>
 #include <stddef.h>
 
-/*Copyright 2018 Benji Dial*/
+/*Copyright 2018 Benji Dial
+  Portland memory management*/
 
 size_t scr_pos = 0;
-volatile uint16_t *scr_buf = (uint16_t *)0xb8000;
-uint8_t scr_mask = 0x0700;
+volatile const uint16_t *scr_buf = (uint16_t *)0xb8000;
+uint16_t scr_mask = 0x0700;
 
-void scr_clear(uint8_t color) {
-  uint16_t byte = scr_mask + ' ';
+void scr_clear(uint16_t mask) {
+  uint16_t word = mask | ' ';
   for (size_t i = 0; i < 2000; i++)
-    scr_buf[i] = byte;
+    scr_buf[i] = word;
   scr_pos = 0;
 }
 
@@ -24,7 +25,7 @@ void scr_outchar(uint8_t ch) {
     /*TODO*/
     break;
   case '\b':
-    scr_buf[--scr_pos] = scr_mask + ' ';
+    scr_buf[--scr_pos] = scr_mask | ' ';
     break;
   case '\t':
     /*TODO*/
@@ -36,7 +37,7 @@ void scr_outchar(uint8_t ch) {
     scr_pos = (scr_pos / 80) * 80;
     break;
   default:
-    scr_buf[scr_pos++] = scr_mask + ch;
+    scr_buf[scr_pos++] = scr_mask | ch;
   }
 }
 

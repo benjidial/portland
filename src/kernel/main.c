@@ -1,6 +1,7 @@
 #include "scr.c"
 
-/*Copyright 2018 Benji Dial*/
+/*Copyright 2018 Benji Dial
+  Portland kernel main routine*/
 
 void _main(void) {
   scr_clear(0x07);
