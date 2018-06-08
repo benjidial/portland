@@ -37,7 +37,7 @@ void scr_pch(uint8_t ch) {
   }
 }
 
-void scr_psz(uint8_t *buffer) {
-  for (size_t i = 0; buffer[i]; i++)
-    scr_psz(buffer[i]);
+void scr_psz(uint8_t *sz) {
+  for (size_t i = 0; sz[i]; i++)
+    scr_pch(sz[i]);
 }
