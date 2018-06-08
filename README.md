@@ -1,8 +1,5 @@
 # Portland OS
-**IMPORTANT MESSAGE GOES HERE**
-
-Please check back for more information about this project as it is posted.
-There will also be some brief information about future plans and features here.
-
-#### Version 0.2.0
-
+Portland OS is very incomplete, still in version 0.x.  Portland will probably not be complete for very long.  
+For documentation, see <https://negative-four-potatoes.github.io/portland>.  
+For bug reports, go to <https://github.com/negative-four-potatoes/portland/issues>.  
+To clone the source code, use `git clone https://github.com/negative-four-potatoes/portland.git`.
