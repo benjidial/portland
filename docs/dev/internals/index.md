@@ -1,7 +1,7 @@
 # Internals documentation
 ## What's where
 [Bootloader](bootloader)
-: `boot.asm` (`_start`)
+: `boot.asm`
 
 Grub config
 : `grub.cfg`
@@ -10,13 +10,13 @@ Grub config
 : `kernel`
 
 Kernel entry point
-: `kernel/main.c` (`_main`)
+: `kernel/main.c`
 
 Linker script
 : `link.ld`
 
 [Memory management](memory)
-: `kernel/mem.c` (`mem_*`)
+: `kernel/mem.c`
 
 [Text-mode I/O](screen)
-: `kernel/scr.c` (`scr_*`)
+: `kernel/scr.c`
