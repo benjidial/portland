@@ -2,7 +2,7 @@
 #include <stddef.h>
 
 /*Copyright 2018 Benji Dial
-  Portland memory management*/
+  Portland text-mode I/O*/
 
 size_t scr_pos = 0;
 volatile const uint16_t *scr_buf = (uint16_t *)0xb8000;
@@ -15,11 +15,7 @@ void scr_clear(uint16_t mask) {
   scr_pos = 0;
 }
 
-uint8_t src_inchar(void) {
-  /*TODO*/
-}
-
-void scr_outchar(uint8_t ch) {
+void scr_pch(uint8_t ch) {
   switch (ch) {
   case '\a':
     /*TODO*/
@@ -41,12 +37,7 @@ void scr_outchar(uint8_t ch) {
   }
 }
 
-void scr_instr(uint8_t *buffer, size_t count) {
-  for (size_t i = 0; i < count; i++)
-    buffer[i] = scr_inchar();
-}
-
-void scr_outstr(uint8_t *buffer) {
+void scr_psz(uint8_t *buffer) {
   for (size_t i = 0; buffer[i]; i++)
-    scr_outchar(buffer[i]);
+    scr_psz(buffer[i]);
 }
