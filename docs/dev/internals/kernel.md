@@ -7,7 +7,7 @@ The kernel, at the moment, simply
 
 ## Components
 * [Memory management](memory)
-* [Text-mode I/O](screen)
+* [VGA driver](VGA)
 
 ---
 **[Back to index](index)**
