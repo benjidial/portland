@@ -21,7 +21,7 @@ void vga_pch(uint8_t ch) {
     /*TODO*/
     break;
   case '\b':
-    vga_buf[--vga_pos] = scr_mask | ' ';
+    vga_buf[--vga_pos] = vga_mask | ' ';
     break;
   case '\t':
     /*TODO*/
