@@ -1,4 +1,4 @@
-bin/portland.img: bin/boot.bin bin/fs/PORTLAND
+bin/portland.img: bin/boot.bin bin/fs/PORTLAND bin/fs/SHELL
 	dd if=/dev/zero of=bin/portland.img count=1440 bs=1024
 	mkfs.fat -F16 portland.img
 	mcopy -i portland.img -s fs/* ::
@@ -7,11 +7,17 @@ bin/portland.img: bin/boot.bin bin/fs/PORTLAND
 
 bin/boot.bin:
 	mkdir bin
-	nasm -f elf32 -o bin/boot.bin src/boot.asm
+	nasm -o bin/boot.bin src/boot.asm
 
 bin/fs/PORTLAND:
 	mkdir -p bin/fs
-	i386-elf-gcc -c src/kernel/main.c -o bin/fs/PORTLAND -ffreestanding
+	gcc -o bin/main.o -c src/kernel/main.c -ffreestanding
+	nasm -f elf -o bin/ivt.o src/kernel/ivt.asm
+	ld -o bin/fs/PORTLAND bin/main.o bin/ivt.o -e _main -nostdlib --oformat=binary
+
+bin/fs/SHELL:
+	mkdir -p bin/fs
+	nasm -o bin/fs/SHELL src/shell/shell.asm
 
 clean:
 	rm bin -r
