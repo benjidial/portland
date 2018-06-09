@@ -1,4 +1,4 @@
-bin/portland.img: bin/boot.bin bin/fs/PORTLAND bin/fs/SHELL
+bin/portland.img: bin/boot.bin bin/fs/PORTLAND bin/fs/SHELL bin/fs/HELLO
 	dd if=/dev/zero of=bin/portland.img count=1440 bs=1024
 	mkfs.fat -F16 portland.img
 	mcopy -i portland.img -s fs/* ::
@@ -18,6 +18,10 @@ bin/fs/PORTLAND:
 bin/fs/SHELL:
 	mkdir -p bin/fs
 	nasm -o bin/fs/SHELL src/shell/shell.asm
+
+bin/fs/HELLO:
+	mkdir -p bin/fs
+	nasm -o bin/fs/HELLO src/hello/hello.asm
 
 clean:
 	rm bin -r
