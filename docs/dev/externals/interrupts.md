@@ -3,10 +3,10 @@
 For information on how to call C functions from assembly, see <>.  Just replace the `call` instruction with an `int` instruction.  If you are looking for the internal workings for contributors to the portland project, see <https://negative-four-potatoes.github.io/portland/dev/internals/IVT>.
 
 ## Listing
-* [Memory management](memory-management)
-* [VGA driver](vga-driver)
-* [FAT16 driver](fat16-driver)
-* [Other](other)
+* [Memory management](#memory-management)
+* [VGA driver](#vga-driver)
+* [FAT16 driver](#fat16-driver)
+* [Other](#other)
 
 ---
 ## Memory management
@@ -29,7 +29,7 @@ For information on how to call C functions from assembly, see <>.  Just replace 
 * 0xa1: [Close](../internals/FAT16#fat_close)
 * 0xa2: [Seek](../internals/FAT16#fat_seek)
 * 0xa3: [Read](../internals/FAT16#fat_read)
-* 0xa4: [Write](../internals/FAT16 #fat_write)
+* 0xa4: [Write](../internals/FAT16#fat_write)
 * 0xa5 - 0xaf: Reserved
 
 ## Other
