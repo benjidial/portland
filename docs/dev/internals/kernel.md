@@ -7,6 +7,7 @@ The kernel, at the moment, simply
 4. halts
 
 ## Components
+* [FAT16 driver](FAT16)
 * [Memory management](memory)
 * [VGA driver](VGA)
 
