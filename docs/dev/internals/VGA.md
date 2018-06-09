@@ -11,17 +11,17 @@
 
 ---
 ## `vga_pos`
-Signature: `size_t vga_pos`
+Type: `size_t`
 
 `vga_pos` stores the position of the next character to be written on the screen in the form row \* 80 + column.  [`vga_buf`](#vga_buf) can be indexed with this value to find the relevant word.  At the kernel's start, this is set to zero.
 
 ## `vga_buf`
-Signature: `volatile const uint16_t *vga_buf`
+Type: `volatile const uint16_t *`
 
 `vga_buf` is a pointer to the address 0xb8000.  This address is the start of the VGA text buffer.  For more information, see <https://en.wikipedia.org/wiki/VGA-compatible_text_mode>.
 
 ## `vga_mask`
-Signature: `uint16_t vga_mask`
+Type: `uint16_t`
 
 This is used to keep track of the upper byte of the next word to be written into [`vga_buf`](#vga_buf).  The lower byte of this should always be set to 0.  For more information, see <https://en.wikipedia.org/wiki/VGA-compatible_text_mode#Text_buffer>.
 
