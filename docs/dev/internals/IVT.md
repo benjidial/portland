@@ -23,20 +23,10 @@ Members:
 
 This is the structure of an entry in the IVT.
 
-## `mem_clear`
-Signature: `void mem_clear(void)`
+## `ivt_set_up`
+Signature: `void ivt_set_up(void)`
 
-This deallocates all memory blocks, setting each entry in the allocation record to `false`.
-
-## `mem_alloc_block`
-Signature: `void *mem_alloc_block(void)`
-
-This tries to allocate a new memory block.  If it can, a pointer to that block is returned.  Otherwise, a null pointer is.
-
-## `mem_dealloc_block`
-Signature: `void mem_dealloc_block(void *ptr)`
-
-This deallocates the memory block pointed to by `ptr`.  If this block is already deallocated, nothing is changed.
+This sets up the IVT.
 
 ---
 **[Back to index](index)**
