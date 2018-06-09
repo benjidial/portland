@@ -1,4 +1,4 @@
-# Text-mode I/O documentation
+# Memory management documentation
 ## Listing
 * [`mem_alloc`](#mem_alloc)
 * [`mem_dealloc`](#mem_dealloc)
