@@ -1,9 +1,10 @@
 # Kernel documentation
 ## Main routine
 The kernel, at the moment, simply  
-1. clears the screen
-2. prints "Welcome to Portland!" with a line break
-3. halts
+1. [clears the memory](memory#mem_clear)
+2. [clears the screen](VGA#vga_clear)
+3. [prints "Welcome to Portland!" with a line break](VGA#vga_psz)
+4. halts
 
 ## Components
 * [Memory management](memory)
