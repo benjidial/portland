@@ -2,8 +2,8 @@
 ;Portland interrupt vector table
 
 %macro IVT_SET 2
-  mov [gs:%1*4], word ivt_%2
-  mov [gs:%1*4+2], ds
+  mov [IVT_START+gs:%1*4], word ivt_%2
+  mov [IVT_START+gs:%1*4+2], ds
 %endmacro
 
 %macro IVT_CALL 1
