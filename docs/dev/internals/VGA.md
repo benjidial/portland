@@ -1,4 +1,7 @@
 # VGA driver documentation
+## Notes
+You may want to read <https://en.wikipedia.org/wiki/VGA-compatible_text_mode> before reading this page.
+
 ## Listing
 * Constants
   * [`VGA_BUF`](#vga_buf)
@@ -14,7 +17,7 @@
 ## `VGA_BUF`
 Value: `(uint16_t *)0xb8000`
 
-This is a pointer to the start of the VGA text buffer.  For more information, see <https://en.wikipedia.org/wiki/VGA-compatible_text_mode>.
+This is a pointer to the start of the VGA text buffer.
 
 ## `vga_pos`
 Type: `size_t`
@@ -24,12 +27,12 @@ Type: `size_t`
 ## `vga_mask`
 Type: `uint16_t`
 
-This is used to keep track of the upper byte of the next word to be written into [`VGA_BUF`](#vga_buf).  The lower byte of this should always be set to 0.  For more information, see <https://en.wikipedia.org/wiki/VGA-compatible_text_mode#Text_buffer>.
+This is used to keep track of the upper byte of the next word to be written into [`VGA_BUF`](#vga_buf).  The lower byte of this should always be set to 0.
 
 ## `vga_clear`
 Signature: `void vga_clear(uint16_t mask)`
 
-This clears the screen, setting each character to a space masked with `mask` and setting [`vga_pos`](#vga_pos) to 0.  The low byte of `mask` should always be 0.  For example, to clear the screen with a black background and a white foreground, call `vga_clear(0x0700)`.  For more information about `mask`'s format, see <https://en.wikipedia.org/wiki/VGA-compatible_text_mode#Text_buffer>.
+This clears the screen, setting each character to a space masked with `mask` and setting [`vga_pos`](#vga_pos) to 0.  The low byte of `mask` should always be 0.  For example, to clear the screen with a black background and a white foreground, call `vga_clear(0x0700)`.
 
 ## `vga_pch`
 Signature: `void vga_pch(uint8_t ch)`
