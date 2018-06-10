@@ -15,7 +15,7 @@ You may want to read <https://en.wikipedia.org/wiki/VGA-compatible_text_mode> be
 
 ---
 ## `VGA_BUF`
-Value: `(uint16_t *)0xb8000`
+Value: `((uint16_t *)0xb8000)`
 
 This is a pointer to the start of the VGA text buffer.
 
@@ -30,17 +30,17 @@ Type: `uint16_t`
 This is used to keep track of the upper byte of the next word to be written into [`VGA_BUF`](#vga_buf).  The lower byte of this should always be set to 0.
 
 ## `vga_clear`
-Signature: `void vga_clear(uint16_t mask)`
+Signature: `void (uint16_t)`
 
-This clears the screen, setting each character to a space masked with `mask` and setting [`vga_pos`](#vga_pos) to 0.  The low byte of `mask` should always be 0.  For example, to clear the screen with a black background and a white foreground, call `vga_clear(0x0700)`.
+This clears the screen, setting each character to a space masked with the provided word and setting [`vga_pos`](#vga_pos) to 0.  The low byte of this mask should always be 0.  For example, to clear the screen with a black background and a white foreground, call `vga_clear(0x0700)`.
 
 ## `vga_pch`
-Signature: `void vga_pch(uint8_t ch)`
+Signature: `void (uint8_t)`
 
 This prints a single character, masked by [`vga_mask`](#vga_mask) to the position defined by [`vga_pos`](#vga_pos), incrementing `vga_pos`.
 
 ## `vga_psz`
-Signature: `void vga_psz(uint8_t *sz)`
+Signature: `void (uint8_t *)`
 
 This calls [`vga_pch`](#vga_pch) on each character of a null-terminated string.
 

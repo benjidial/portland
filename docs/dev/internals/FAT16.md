@@ -31,44 +31,49 @@ This is a type representing an open FAT16 file.
 Members:
 * `size_t n_contents`
 * `size_t n_dirs`
-* `char **contents`
+* `uint8_t **contents`
 
 This is a type representing a directory in a FAT16 drive.  The first `n_dirs` entries in `contents` are null-terminated strings representing sub-directories.  The remaining `n_contents - n_dirs` entries are null-terminated strings representing files.  These strings are not qualified with paths.
 
 ## `fat_open`
-Signature: `struct fat_file *fat_open(char *path)`
+Signature: `struct fat_file *(uint8_t *)`
 
-This opens the FAT16 file at `path` and returns a pointer to the [`fat_file`](#fat_file) representing it.
+This opens the file at the path provided and returns a pointer to the [`struct fat_file`](#fat_file) representing it.
 
 ## `fat_close`
-Signature: `void fat_close(struct fat_file *file)`
+Signature: `void (struct fat_file *)`
 
-This closes the FAT16 file referenced by `file`.  Further use of `file` once it has been closed causes undefined behavior.
+This closes the provided file.  Further use of a [`struct fat_file`](#fat_file) once it has been closed causes undefined behavior.
 
 ## `fat_seek`
-Signature: `void fat_seek(struct fat_file *file, FAT_POS position)`
+Signature: `void (struct fat_file *, FAT_POS)`
 
-This seeks within the file referenced by `file` to the position specified.
+This seeks within the specified file to the position specified.
 
 ## `fat_read`
-Signature: `void fat_read(struct fat_file *file, size_t count, uint8_t *buffer)`
+Signature: `void (struct fat_file *, size_t, uint8_t *)`
 
-This reads `count` bytes out of the current position of the file referenced by `file` into the beginning of `buffer`.
+This reads the specified number of bytes out of the current position of the provided file into the beginning of the provided buffer.
 
 ## `fat_write`
-Signature: `void fat_write(struct fat_file *file, size_t count, uint8_t *buffer)`
+Signature: `void (struct fat_file *, size_t, uint8_t *)`
 
-This writes `count` bytes from the beginning of `buffer` to the current position of the file referenced by `file`.
+This writes the specified number of bytes from the beginning of the provided buffer to the current position of the provided file.
 
 ## `fat_exec`
-Signature: `void fat_exec(char *path)`
+Signature: `void (uint8_t *)`
 
-This opens, loads, closes, executes and unloads the file at `path`.
+This opens, loads, closes, executes and unloads the file at the specified path.
 
 ## `fat_dir_info`
-Signature: `struct fat_dir fat_dir_info(char *path)`
+Signature: `struct fat_dir (uint8_t *)`
 
-This returns a [`struct fat_dir`](#fat_dir) listing the contents of the directory at `path`.
+This returns a [`struct fat_dir`](#fat_dir) listing the contents of the directory at the specified path.
+
+## `fat_del`
+Signature: `void (uint8_t *)`
+
+This deletes the file or directory at the specified path.
 
 ---
 **[Back to index](index)**

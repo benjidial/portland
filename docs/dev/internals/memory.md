@@ -45,19 +45,19 @@ Type: `bool *`
 This keeps track of the next entry in the allocation record for [`mem_alloc_block`](#mem_alloc_block) to try.  For a description of the allocation record, see [`MEM_AR_START`](#mem_ar_start).
 
 ## `mem_clear`
-Signature: `void mem_clear(void)`
+Signature: `void (void)`
 
 This deallocates all memory blocks, setting each entry in the allocation record to `false`.
 
 ## `mem_alloc_block`
-Signature: `void *mem_alloc_block(void)`
+Signature: `void * (void)`
 
 This tries to allocate a new memory block.  If it can, a pointer to that block is returned.  Otherwise, a null pointer is.
 
 ## `mem_dealloc_block`
-Signature: `void mem_dealloc_block(void *ptr)`
+Signature: `void (void *)`
 
-This deallocates the memory block pointed to by `ptr`.  If this block is already deallocated, nothing is changed.
+This deallocates the memory block specified.  If this block is already deallocated, nothing is changed.
 
 ---
 **[Back to index](index)**

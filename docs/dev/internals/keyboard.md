@@ -34,3 +34,6 @@ This obtains the character representing the keypress.  The boolean passed determ
 Signature: `void (uint8_t *, bool)`
 
 This reads characters up to and not including a newline into the buffer provided, appending a null character.  Backspaces cancel out the preceeding character.  The boolean passed determines whether or not to print each character as well using [`vga_pch`](VGA#vga_pch).
+
+---
+**[Back to index](index)**

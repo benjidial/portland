@@ -15,9 +15,9 @@ Value: `0x0`
 This defines the start of the IVT.  We are using `0x0`, since it requires the least setup.
 
 ## `ivt_set_up`
-Signature: `void ivt_set_up(void)`
+Signature: `void (void)`
 
-This sets up the IVT.
+This sets up the IVT.  The kernel calls it at startup.
 
 ---
 **[Back to index](index)**

@@ -14,10 +14,10 @@ struct fat_file {
 struct fat_dir {
   size_t n_contents;
   size_t n_dirs;
-  char **contents;
+  uint8_t **contents;
 };
 
-struct fat_file *fat_open(char *path) {
+struct fat_file *fat_open(uint8_t *path) {
   /*TODO*/
 }
 
@@ -37,7 +37,7 @@ void fat_write(struct fat_file *file, size_t count, uint8_t *buffer) {
   /*TODO*/
 }
 
-void fat_exec(char *path) {
+void fat_exec(uint8_t *path) {
   struct fat_file *file = fat_open(path);
   /*Allocate buffer*/
   fat_read(file, file->length, buffer);
@@ -46,6 +46,10 @@ void fat_exec(char *path) {
   /*Deallocate buffer*/
 }
 
-struct fat_dir fat_dir_info(char *path) {
+struct fat_dir fat_dir_info(uint8_t *path) {
+  /*TODO*/
+}
+
+void fat_del(uint8_t *path) {
   /*TODO*/
 }
