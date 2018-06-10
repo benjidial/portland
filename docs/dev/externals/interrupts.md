@@ -1,6 +1,6 @@
 # Interrupt listing
 ## Notes
-For some examples on how to use these interrupts from assembly, see <https://github.com/negative-four-potatoes/portland/blob/master/src/shell/shell.asm>.  If you are looking for the internal workings of interrupts for contributors to the portland project, see <https://negative-four-potatoes.github.io/portland/dev/internals/IVT>.
+For some examples on how to use these interrupts from assembly, see [the portland shell](https://github.com/negative-four-potatoes/portland/blob/master/src/shell/shell.asm).  It uses the VGA driver's print null-terminated string interrupt (0x96), the keyboard driver's get line interrupt (0xb2) and the FAT16 driver's execute file interrupt (0xa5).  If you are looking for the internal workings of interrupts for contributors to the portland project, see <https://negative-four-potatoes.github.io/portland/dev/internals/IVT>.
 
 ## Listing
 * [Memory management](#memory-management)
