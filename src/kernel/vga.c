@@ -1,5 +1,6 @@
 #include <stdint.h>
 #include <stddef.h>
+#include "speak.h"
 
 /*Copyright 2018 Benji Dial
   Portland VGA driver*/
@@ -20,17 +21,17 @@ void vga_clear(uint16_t mask) {
 void vga_pch(uint8_t ch) {
   switch (ch) {
   case '\a':
-    /*TODO*/
+    speak_boop();
     break;
   case '\b':
     VGA_BUF[--vga_pos] = vga_mask | ' ';
     break;
   case '\t':
-    VGA_FUB[vga_pos + 4] =
-    VGA_FUB[vga_pos + 3] =
-    VGA_FUB[vga_pos + 2] =
-    VGA_FUB[vga_pos + 1] =
-    VGA_FUB[vga_pos] = vga_mask | ' ';
+    VGA_BUF[vga_pos + 4] =
+    VGA_BUF[vga_pos + 3] =
+    VGA_BUF[vga_pos + 2] =
+    VGA_BUF[vga_pos + 1] =
+    VGA_BUF[vga_pos] = vga_mask | ' ';
     break;
   case '\n':
     vga_pos = (vga_pos / 80 + 1) * 80;
