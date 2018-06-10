@@ -30,7 +30,9 @@ For information on how to call C functions from assembly, see <>.  Just replace 
 * 0xa2: [Seek](../internals/FAT16#fat_seek)
 * 0xa3: [Read](../internals/FAT16#fat_read)
 * 0xa4: [Write](../internals/FAT16#fat_write)
-* 0xa5 - 0xaf: Reserved
+* 0xa5: [Execute](../internals/FAT16#fat_exec)
+* 0xa6: [Get directory contents](../internals/FAT16#fat_dir_info)
+* 0xa7 - 0xaf: Reserved
 
 ## Other
 * 0xb0 - 0xff: Reserved

@@ -1,14 +1,14 @@
 #include "vga.c"
 #include "mem.c"
-#include "ivt.c"
+void ivt_set_up(void);
+#include "fat.c"
 
 /*Copyright 2018 Benji Dial
   Portland kernel main routine*/
 
-int main(void) {
+void main(void) {
   ivt_set_up();
   mem_clear();
   vga_clear(0x07);
-  vga_psz("Welcome to Portland!\n");
-  return 0;
+  fat_exec("SHELL");
 }

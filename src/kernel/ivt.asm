@@ -33,6 +33,8 @@ ivt_set_up:
   IVT_SET 0xa2, fat_seek
   IVT_SET 0xa3, fat_read
   IVT_SET 0xa4, fat_write
+  IVT_SET 0xa5, fat_exec
+  IVT_SET 0xa6, fat_dir_info
   ret
 
 
@@ -64,3 +66,5 @@ IVT_CALL fat_close;0xa1
 IVT_CALL fat_seek;0xa2
 IVT_CALL fat_read;0xa3
 IVT_CALL fat_write;0xa4
+IVT_CALL fat_exec;0xa5
+IVT_CALL fat_dir_info;0xa6
