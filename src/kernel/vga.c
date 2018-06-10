@@ -4,7 +4,7 @@
 /*Copyright 2018 Benji Dial
   Portland VGA driver*/
 
-#define VGA_BUF (uint16_t *0xb8000)
+#define VGA_BUF ((uint16_t *)0xb8000)
 
 size_t vga_pos = 0;
 uint16_t vga_mask = 0x0700;

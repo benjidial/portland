@@ -1,6 +1,9 @@
+[BITS 16]
+
 _main:
-  ;pass hello
-  int 0x96
+  push hello
+  int 0x8e
+  add esp, 2
   ret
 
 hello db "Hello, world!", 10, 0

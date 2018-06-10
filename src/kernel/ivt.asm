@@ -21,50 +21,64 @@ ivt_set_up:
   mov gs, ax
   IVT_SET 0x80, mem_alloc_block
   IVT_SET 0x81, mem_dealloc_block
-  IVT_SET 0x90, vga_set_pos
-  IVT_SET 0x91, vga_get_pos
-  IVT_SET 0x92, vga_set_mask
-  IVT_SET 0x93, vga_get_mask
-  IVT_SET 0x94, vga_clear
-  IVT_SET 0x95, vga_pch
-  IVT_SET 0x96, vga_psz
-  IVT_SET 0xa0, fat_open
-  IVT_SET 0xa1, fat_close
-  IVT_SET 0xa2, fat_seek
-  IVT_SET 0xa3, fat_read
-  IVT_SET 0xa4, fat_write
-  IVT_SET 0xa5, fat_exec
-  IVT_SET 0xa6, fat_dir_info
+  IVT_SET 0x88, vga_set_pos
+  IVT_SET 0x89, vga_get_pos
+  IVT_SET 0x8a, vga_set_mask
+  IVT_SET 0x8b, vga_get_mask
+  IVT_SET 0x8c, vga_clear
+  IVT_SET 0x8d, vga_pch
+  IVT_SET 0x8e, vga_psz
+  IVT_SET 0x8f, vga_get_word
+  IVT_SET 0x90, fat_open
+  IVT_SET 0x91, fat_close
+  IVT_SET 0x92, fat_seek
+  IVT_SET 0x93, fat_read
+  IVT_SET 0x94, fat_write
+  IVT_SET 0x95, fat_exec
+  IVT_SET 0x96, fat_dir_info
+  IVT_SET 0x97, fat_del
+  IVT_SET 0x98, kbd_gkp
+  IVT_SET 0x99, kbd_gch
+  IVT_SET 0x9a, kbd_gln
   ret
 
 
-IVT_CALL mem_alloc_block;0x80
-IVT_CALL mem_dealloc_block;0x81
+IVT_CALL mem_alloc_block
+IVT_CALL mem_dealloc_block
 
-ivt_vga_set_pos:;0x90
+ivt_vga_set_pos:
   ;TODO
   iret
 
-ivt_vga_get_pos:;0x91
+ivt_vga_get_pos:
   ;TODO
   iret
 
-ivt_vga_set_mask:;0x92
+ivt_vga_set_mask:
   ;TODO
   iret
 
-ivt_vga_get_mask:;0x93
+ivt_vga_get_mask:
   ;TODO
   iret
 
-IVT_CALL vga_clear;0x94
-IVT_CALL vga_pch;0x95
-IVT_CALL vga_psz;0x96
+IVT_CALL vga_clear
+IVT_CALL vga_pch
+IVT_CALL vga_psz
 
-IVT_CALL fat_open;0xa0
-IVT_CALL fat_close;0xa1
-IVT_CALL fat_seek;0xa2
-IVT_CALL fat_read;0xa3
-IVT_CALL fat_write;0xa4
-IVT_CALL fat_exec;0xa5
-IVT_CALL fat_dir_info;0xa6
+ivt_vga_get_word:
+  ;TODO
+  iret
+
+IVT_CALL fat_open
+IVT_CALL fat_close
+IVT_CALL fat_seek
+IVT_CALL fat_read
+IVT_CALL fat_write
+IVT_CALL fat_exec
+IVT_CALL fat_dir_info
+IVT_CALL fat_del
+
+IVT_CALL kbd_gkp
+IVT_CALL kbd_gch
+IVT_CALL kbd_gln
