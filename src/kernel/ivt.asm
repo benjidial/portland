@@ -47,19 +47,21 @@ IVT_CALL mem_alloc_block
 IVT_CALL mem_dealloc_block
 
 ivt_vga_set_pos:
-  ;TODO
+  extern vga_pos
+  mov [vga_pos], word [sp]
   iret
 
 ivt_vga_get_pos:
-  ;TODO
+  mov ax, word [vga_pos]
   iret
 
 ivt_vga_set_mask:
-  ;TODO
+  extern vga_mask
+  mov [vga_mask], word [sp]
   iret
 
 ivt_vga_get_mask:
-  ;TODO
+  mov ax, word [vga_mask]
   iret
 
 IVT_CALL vga_clear
@@ -67,7 +69,9 @@ IVT_CALL vga_pch
 IVT_CALL vga_psz
 
 ivt_vga_get_word:
-  ;TODO
+  mov bx, [sp]
+  mul bx, 2
+  mov ax, word [bx+0xb8000]
   iret
 
 IVT_CALL fat_open
