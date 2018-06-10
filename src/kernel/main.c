@@ -1,6 +1,6 @@
 #include "vga.c"
 #include "mem.c"
-void ivt_set_up(void);
+extern void ivt_set_up(void);
 #include "fat.c"
 
 /*Copyright 2018 Benji Dial
