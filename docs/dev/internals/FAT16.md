@@ -13,6 +13,7 @@
   * [`fat_write`](#fat_write)
   * [`fat_exec`](#fat_exec)
   * [`fat_dir_info`](#fat_dir_info)
+  * [`fat_del`](#fat_del)
 
 ---
 ## `FAT_POS`
