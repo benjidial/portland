@@ -1,6 +1,6 @@
 # Interrupt listing
 ## Notes
-For information on how to call C functions from assembly, see <>.  Just replace the `call` instruction with an `int` instruction.  If you are looking for the internal workings for contributors to the portland project, see <https://negative-four-potatoes.github.io/portland/dev/internals/IVT>.
+For some examples on how to use these interrupts from assembly, see <https://github.com/negative-four-potatoes/portland/blob/master/src/shell/shell.asm>.  If you are looking for the internal workings of interrupts for contributors to the portland project, see <https://negative-four-potatoes.github.io/portland/dev/internals/IVT>.
 
 ## Listing
 * [Memory management](#memory-management)
