@@ -5,6 +5,7 @@
   Portland VGA driver*/
 
 #define VGA_BUF ((uint16_t *)0xb8000)
+/*Tabs are five spaces*/
 
 size_t vga_pos = 0;
 uint16_t vga_mask = 0x0700;
@@ -25,7 +26,11 @@ void vga_pch(uint8_t ch) {
     VGA_BUF[--vga_pos] = vga_mask | ' ';
     break;
   case '\t':
-    /*TODO*/
+    VGA_FUB[vga_pos + 4] =
+    VGA_FUB[vga_pos + 3] =
+    VGA_FUB[vga_pos + 2] =
+    VGA_FUB[vga_pos + 1] =
+    VGA_FUB[vga_pos] = vga_mask | ' ';
     break;
   case '\n':
     vga_pos = (vga_pos / 80 + 1) * 80;
