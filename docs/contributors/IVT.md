@@ -1,6 +1,6 @@
 # Interrupt vector table documentation
 ## Notes
-You may want to read <https://en.wikipedia.org/wiki/Interrupt_vector_table> before reading this page.  If you are looking for a listing of the interrupts available to developers of applications for portland, see <https://negative-four-potatoes.github.io/portland/dev/externals/interrupts>.
+You may want to read <https://en.wikipedia.org/wiki/Interrupt_vector_table> before reading this page.  If you are looking for a listing of the interrupts available to developers of applications for portland, see <https://negative-four-potatoes.github.io/portland/developers/interrupts>.
 
 ## Listing
 * Constants

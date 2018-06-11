@@ -1,4 +1,4 @@
 # Externals documentation
 ## Overview
 * [Interrupts](interrupts)
-* [Specifications](specifications)
+* [Example programs](../users/programs)
