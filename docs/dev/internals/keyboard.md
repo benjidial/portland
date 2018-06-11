@@ -20,7 +20,7 @@ This obtains the scancode representing the next keypress.
 ## `kbd_gch`
 Signature: `uint8_t (bool)`
 
-This obtains the character representing the keypress.  The boolean passed determines whether or not to print the character as well using [`vga_pch`](VGA#vga_pch).
+This obtains the character representing the next keypress.  The boolean passed determines whether or not to print the character as well using [`vga_pch`](VGA#vga_pch).
 
 ## `kbd_gln`
 Signature: `void (uint8_t *, bool)`
