@@ -32,6 +32,7 @@ void vga_pch(uint8_t ch) {
     VGA_BUF[vga_pos + 2] =
     VGA_BUF[vga_pos + 1] =
     VGA_BUF[vga_pos] = vga_mask | ' ';
+    vga_pos += 5;
     break;
   case '\n':
     vga_pos = (vga_pos / 80 + 1) * 80;
