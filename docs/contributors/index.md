@@ -1,4 +1,4 @@
-# Internals documentation
+# Documentation for contributors
 ## Overview
 * [Bootloader](bootloader)
 * [Kernel](kernel)

@@ -9,6 +9,7 @@ The kernel, at the moment, simply
 
 ## Components
 * [FAT16 driver](FAT16)
+* [Interrupt vector table](IVT)
 * [Keyboard driver](keyboard)
 * [Memory management](memory)
 * [VGA driver](VGA)
