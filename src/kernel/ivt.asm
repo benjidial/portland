@@ -8,8 +8,8 @@
 
 %macro IVT_CALL 1
 ivt_%1:
-  extern _%1
-  call _%1
+  extern %1
+  call %1
   iret
 %endmacro
 
