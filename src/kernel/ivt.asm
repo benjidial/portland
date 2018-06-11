@@ -37,7 +37,7 @@ ivt_set_up:
   IVT_SET 0x95, fat_exec
   IVT_SET 0x96, fat_dir_info
   IVT_SET 0x97, fat_del
-  IVT_SET 0x98, kbd_gkp
+  IVT_SET 0x98, kbd_gsc
   IVT_SET 0x99, kbd_gch
   IVT_SET 0x9a, kbd_gln
   ret
@@ -83,6 +83,6 @@ IVT_CALL fat_exec
 IVT_CALL fat_dir_info
 IVT_CALL fat_del
 
-IVT_CALL kbd_gkp
+IVT_CALL kbd_gsc
 IVT_CALL kbd_gch
 IVT_CALL kbd_gln

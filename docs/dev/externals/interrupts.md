@@ -35,7 +35,7 @@ For some examples on how to use these interrupts from assembly, see [the portlan
 * 0x97: [Delete file or directory](../internals/FAT16#fat_del)
 
 ## Keyboard driver
-* 0x98: [Get next key packet](../internals/keyboard#kbd_gkp)
+* 0x98: [Get next scancode](../internals/keyboard#kbd_gsc)
 * 0x99: [Get next character](../internals/keyboard#kbd_gch)
 * 0x9a: [Get next line](../internals/keyboard#kbd_gln)
 * 0x9b - 0x9f: Reserved

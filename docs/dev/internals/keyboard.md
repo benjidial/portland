@@ -1,29 +1,21 @@
 # Keyboard driver documentation
 ## Listing
-* Structures
-  * [`kbd_packet`](#kbd_packet)
 * Functions
-  * [`kbd_packet_to_graph`](#kbd_packet_to_graph)
-  * [`kbd_gkp`](#kbd_gkp)
+  * [`kbd_sc2ch`](#kbd_sc2ch)
+  * [`kbd_gsc`](#kbd_gsc)
   * [`kbd_gch`](#kbd_gch)
   * [`kbd_gln`](#kbd_gln)
 
 ---
-## `kbd_packet`
-Members:
-* `/*TODO*/`
+## `kbd_sc2ch`
+Signature: `uint8_t (uint8_t)`
 
-This contains all the information necessary to interpret a keypress.
+This converts a scancode into the appropriate character.
 
-## `kbd_packet_to_graph`
-Signature: `uint8_t (struct kbd_packet)`
+## `kbd_gsc`
+Signature: `uint8_t (void)`
 
-This converts a [`kbd_packet`](#kbd_packet) into the appropriate character.
-
-## `kbd_gkp`
-Signature: `struct kbd_packet (void)`
-
-This obtains the [`kbd_packet`](#kbd_packet) representing the next keypress.
+This obtains the scancode representing the next keypress.
 
 ## `kbd_gch`
 Signature: `uint8_t (bool)`

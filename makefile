@@ -13,7 +13,8 @@ bin/fs/PORTLAND:
 	mkdir -p bin/fs
 	gcc -o bin/main.o -c src/kernel/main.c -ffreestanding
 	nasm -f elf -o bin/ivt.o src/kernel/ivt.asm
-	ld -o bin/fs/PORTLAND bin/main.o bin/ivt.o -e _main -nostdlib --oformat=binary
+	nasm -f elf -o bin/kbd.o src/kernel/kbd.asm
+	ld -o bin/fs/PORTLAND bin/main.o bin/ivt.o bin/kbd.o -e _main -nostdlib --oformat=binary
 
 bin/fs/SHELL:
 	mkdir -p bin/fs

@@ -4,22 +4,16 @@
 #include "vga.c"
 
 /*Copyright 2018 Benji Dial
-  Portland keyboard driver*/
+  Portland PS/2 keyboard driver*/
 
-struct kbd_packet {
+uint8_t kbd_sc2ch(uint8_t scan) {
   /*TODO*/
 }
 
-uint8_t kbd_packet_to_graph(struct kbd_packet packet) {
-  /*TODO*/
-}
-
-struct kbd_packet kbd_gkp(void) {
-  /*TODO*/
-}
+extern uint8_t kbd_gsc(void);
 
 uint8_t kbd_gch(bool print) {
-  uint8_t graph = kbd_packet_to_graph(kbd_gkp());
+  uint8_t graph = kbd_sc2ch(kbd_gsc());
   if (print)
     vga_pch(graph);
   return graph;
