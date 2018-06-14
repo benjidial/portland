@@ -5,9 +5,9 @@
 /*Copyright 2018 Benji Dial
   Portland memory management*/
 
-#define MEM_AR_START /*TODO*/
-#define MEM_BLOCK_SIZE /*TODO*/
-#define MEM_POOL_LEN /*TODO*/
+#define MEM_AR_START ((void *)0x2000)
+#define MEM_BLOCK_SIZE ((size_t)32)
+#define MEM_POOL_LEN ((void *)0xe000)
 
 #define MEM_POOL_START (MEM_AR_START + MEM_POOL_LEN * sizeof(bool) / MEM_BLOCK_SIZE)
 #define MEM_POOL_END (MEM_POOL_START + MEM_POOL_LEN)
