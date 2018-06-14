@@ -5,7 +5,6 @@ This list may not be complete.  If you would like a program added, use the form 
 ## Listing
 * [Portland kernel](#portland_kernel)
 * [Portland shell](#portland_shell)
-* [Hello world example](#hello_world_example)
 
 ---
 ## Portland kernel
@@ -14,7 +13,7 @@ The portland kernel is included with Project Portland under the file `PORTLAND`.
 
 ## Portland shell
 
-The portland shell is included with Project Portland under the file `SHELL`.  This is a pretty important file.  Do not delete it unless you are experienced.  Its source code is available at <https://github.com/negative-four-potatoes/portland/tree/master/src/shell>.
+The portland shell is included with Project Portland under the file `SHELL`.  This is a pretty important file.  Do not delete it unless you are experienced.  Its source code is available at <https://github.com/negative-four-potatoes/portland-shell>.
 
 ---
 **[Back to index](index)**
