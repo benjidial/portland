@@ -9,11 +9,11 @@ This list may not be complete.  If you would like a program added, use the form 
 ---
 ## Portland kernel
 
-The portland kernel is included with Project Portland under the file `portland`.  This is a vital system file.  Do not delete it.  Its source code is available at <https://github.com/negative-four-potatoes/portland/tree/master/src/kernel>.  For a technical description of what it does, see <https:/
+The portland kernel is included with Project Portland under the file `portland`.  This is a vital system file.  Do not delete it.  Its source code is available at <https://github.com/negative-four-potatoes/portland/tree/master/src/kernel>.  For a technical description of what it does, see <https://negative-four-potatoes.github.io/portland/contributors/kernel>.
 
 ## Portland shell
 
-The portland shell is included with Project Portland under the file `shell`.  This is a pretty important file.  Do not delete or change it unless you are experienced.  Its source code is available at <https://github.com/negative-four-potatoes/portland-shell>.
+The portland shell is included with Project Portland under the file `shell`.  This is a pretty important file.  Do not delete or change it unless you are experienced.  Its source code is available at <https://github.com/negative-four-potatoes/portland-shell>.  For a description of what it does, see <https://negative-four-potatoes.github.io/portland/users/shell>.
 
 ---
 **[Back to index](index)**
