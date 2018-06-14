@@ -1,9 +1,6 @@
-bin/portland.img: bin/boot.bin bin/fs/PORTLAND bin/fs/SHELL bin/fs/HELLO
-	dd if=/dev/zero of=bin/portland.img count=1440 bs=1024
-	mkfs.fat -F16 portland.img
-	mcopy -i portland.img -s fs/* ::
-	dd if=bin/boot.bin of=bin/portland.img seek=0 count=3 bs=1 conv=notrunc
-	dd if=bin/boot.bin of=bin/portland.img seek=62 skip=62 count=449 bs=1 conv=notrunc
+bin/portland.img: bin/boot.bin bin/fs/PORTLAND bin/fs/SHELL
+	tar cf bin/fs.tar bin/fs/
+	cat bin/boot.bin bin/fs.tar bin/portland.img
 
 bin/boot.bin:
 	mkdir bin

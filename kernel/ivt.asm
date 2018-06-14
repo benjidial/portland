@@ -29,14 +29,14 @@ ivt_set_up:
   IVT_SET 0x8d, vga_pch
   IVT_SET 0x8e, vga_psz
   IVT_SET 0x8f, vga_get_word
-  IVT_SET 0x90, fat_open
-  IVT_SET 0x91, fat_close
-  IVT_SET 0x92, fat_seek
-  IVT_SET 0x93, fat_read
-  IVT_SET 0x94, fat_write
-  IVT_SET 0x95, fat_exec
-  IVT_SET 0x96, fat_dir_info
-  IVT_SET 0x97, fat_del
+  IVT_SET 0x90, tar_open
+  IVT_SET 0x91, tar_close
+  IVT_SET 0x92, tar_seek
+  IVT_SET 0x93, tar_read
+  IVT_SET 0x94, tar_write
+  IVT_SET 0x95, tar_exec
+  IVT_SET 0x96, tar_dir_info
+  IVT_SET 0x97, tar_del
   IVT_SET 0x98, kbd_gsc
   IVT_SET 0x99, kbd_gch
   IVT_SET 0x9a, kbd_gln
@@ -74,14 +74,14 @@ ivt_vga_get_word:
   mov ax, word [bx+0xb8000]
   iret
 
-IVT_CALL fat_open
-IVT_CALL fat_close
-IVT_CALL fat_seek
-IVT_CALL fat_read
-IVT_CALL fat_write
-IVT_CALL fat_exec
-IVT_CALL fat_dir_info
-IVT_CALL fat_del
+IVT_CALL tar_open
+IVT_CALL tar_close
+IVT_CALL tar_seek
+IVT_CALL tar_read
+IVT_CALL tar_write
+IVT_CALL tar_exec
+IVT_CALL tar_dir_info
+IVT_CALL tar_del
 
 IVT_CALL kbd_gsc
 IVT_CALL kbd_gch
