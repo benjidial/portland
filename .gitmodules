@@ -1,3 +1,6 @@
 [submodule "src/shell"]
 	path = src/shell
 	url = https://github.com/negative-four-potatoes/portland-shell.git
+[submodule "shell"]
+	path = shell
+	url = https://github.com/negative-four-potatoes/portland-shell.git
