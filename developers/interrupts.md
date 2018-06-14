@@ -31,7 +31,7 @@ For some examples on how to use these interrupts from assembly see [the first ve
 * 0x93: [Read](../contributors/USTAR#tar_read)
 * 0x94: [Write](../contributors/USTAR#tar_write)
 * 0x95: [Execute](../contributors/USTAR#tar_exec)
-* 0x96: [Get directory contents](../contributors/USTAR#tar_dir_info)
+* 0x96: Reserved
 * 0x97: [Delete file or directory](../contributors/USTAR#tar_del)
 
 ## Keyboard driver
