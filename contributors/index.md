@@ -5,5 +5,6 @@
   * [USTAR driver](USTAR)
   * [Interrupt Vector Table](IVT)
   * [Keyboard driver](keyboard)
-  * [Memory management](memory)
+  * [Dynamic memory](memory)
   * [VGA driver](VGA)
+* [Memory layout](layout)
