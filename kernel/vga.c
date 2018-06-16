@@ -8,12 +8,12 @@
 #define VGA_BUF ((uint16_t *)0xb8000)
 /*Tabs are five spaces*/
 
-size_t vga_pos = 0;
+uint16_t vga_pos = 0;
 uint16_t vga_mask = 0x0700;
 
 void vga_clear(uint16_t mask) {
   uint16_t word = mask | ' ';
-  for (size_t i = 0; i < 2000; i++)
+  for (uint16_t i = 0; i < 2000; i++)
     VGA_BUF[i] = word;
   vga_pos = 0;
 }
