@@ -4,17 +4,9 @@
 /*Copyright 2018 Benji Dial
   Portland PFS driver*/
 
-struct pfs_record {
-  uint32_t position;
-  uint16_t size;
-  uint8_t sectors;
-  uint8_t name[45];
-}
-
 struct pfs_file {
-  uint16_t file_id
+  uint8_t file_id
   uint16_t length;
-  struct pfs_header header;
   uint16_t position;
   uint8_t *contents;
 };
@@ -35,8 +27,8 @@ struct pfs_header {
   uint8_t name[45];
 };
 
-struct pfs_record *pfs_records = (struct pfs_record */*TODO*/);
-uint16_t pfs_n_records;
+uint32_t *pfs_files = ;
+uint8_t pfs_n_files;
 
 void pfs_init(uint8_t drive_id) {
   
