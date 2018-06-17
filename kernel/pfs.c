@@ -5,41 +5,39 @@
   Portland PFS driver*/
 
 struct pfs_file {
-  uint8_t file_id
+  uint8_t file_id;
   uint16_t length;
   uint16_t position;
   uint8_t *contents;
 };
 
 struct pfs_header {
-/*0 for this version*/
+  /*0 for this version*/
   uint16_t version;
   uint16_t size;
   uint8_t sectors;
-/*UNIX timestamps*/
+  /*UNIX timestamps*/
   uint64_t create_time;
   uint64_t last_flush_time;
   uint64_t last_open_time;
-/*29 bytes so far*/
-/*Spaces as padding at end,
-  no spaces during name,
-  space at start for free sectors*/
+  /*Spaces as padding at end,
+    no spaces during name,
+    space at start for free sectors*/
   uint8_t name[45];
 };
 
-uint32_t *pfs_files = ;
-uint8_t pfs_n_files;
+/*Sector number of each header*/
+#define pfs_files ((uint16_t *)0x0600)
+#define pfs_n_files (*(uint8_t *)0x0504)
 
-void pfs_init(uint8_t drive_id) {
-  
-}
+void pfs_init(uint8_t drive_id);
 
 struct pfs_file *pfs_open(uint8_t *name) {
   /*TODO*/
 }
 
 void pfs_close(struct pfs_file *file) {
-  
+  /*TODO*/
 }
 
 void pfs_seek(struct pfs_file *file, uint16_t position) {
