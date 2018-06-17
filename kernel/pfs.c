@@ -20,9 +20,8 @@ struct pfs_header {
   uint64_t create_time;
   uint64_t last_flush_time;
   uint64_t last_open_time;
-  /*Spaces as padding at end,
-    no spaces during name,
-    space at start for free sectors*/
+  /*NUL-terminated string,
+    empty for free sectors*/
   uint8_t name[45];
 };
 
@@ -30,14 +29,57 @@ struct pfs_header {
 #define pfs_files ((uint16_t *)0x0600)
 #define pfs_n_files (*(uint8_t *)0x0504)
 
+struct {
+  uint8_t sixteen;
+  uint8_t zero;
+  uint16_t n_sectors;
+  uint16_t offset;
+  uint16_t segment;
+  uint64_t sector;
+} pfs_dap = {
+  .sixteen = 16,
+  .zero = 0,
+  .segment = 0
+};
+
+inline void pfs_read_sectors(uint64_t sector, uint16_t n_sectors, uint8_t *buffer) {
+  asm volatile (
+    "mov ah, 0x42\n"
+    ";TODO: dl\n"
+    "xor ds, ds\n"
+    "mov si, %(&pfs_dap)\n"
+    "mov [%(&pfs_dap.sector)], %(sector)\n"
+    "mov [%(&pfs_dap.n_sectors)], %(n_sectors)\n"
+    "mov [%(&pfs_dap.offset)], %(buffer)\n"
+    "int 0x13"
+  );
+}
+
+inline void pfs_write_sectors(uint64_t sector, uint16_t n_sectors, uint8_t *buffer) {
+  asm volatile (
+    "mov ah, 0x43\n"
+    ";TODO\n"
+    "int 0x13"
+  );
+}
+
 void pfs_init(uint8_t drive_id);
 
+uint16_t pfs_get_header(uint8_t *name, pfs_header *header) {
+  /*TODO*/
+}
+
 struct pfs_file *pfs_open(uint8_t *name) {
+  pfs_header header;
+  uint16_t position = pfs_get_header(name, &header);
   /*TODO*/
 }
 
 void pfs_close(struct pfs_file *file) {
-  /*TODO*/
+  pfs_header header;
+  uint16_t sector = pfs_get_header(name, &header);
+  header.name[0] = '\0';
+  pfs_write_sectors(sector, 1, &header);
 }
 
 void pfs_seek(struct pfs_file *file, uint16_t position) {
