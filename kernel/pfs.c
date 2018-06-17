@@ -76,10 +76,7 @@ struct pfs_file *pfs_open(uint8_t *name) {
 }
 
 void pfs_close(struct pfs_file *file) {
-  pfs_header header;
-  uint16_t sector = pfs_get_header(name, &header);
-  header.name[0] = '\0';
-  pfs_write_sectors(sector, 1, &header);
+  /*TODO: deallocate file->contents*/
 }
 
 void pfs_seek(struct pfs_file *file, uint16_t position) {
@@ -96,7 +93,7 @@ void pfs_write(struct pfs_file *file, uint16_t count, uint8_t *buffer) {
     file->contents[file->position++] = buffer[i];
 }
 
-void pfs_exec(uint8_t *path) {
+void pfs_exec(uint8_t *name) {
   struct pfs_file *file = pfs_open(path);
   /*TODO: Allocate buffer*/
   pfs_read(file, file->length, buffer);
@@ -105,8 +102,11 @@ void pfs_exec(uint8_t *path) {
   /*TODO: Deallocate buffer*/
 }
 
-void pfs_del(uint8_t *path) {
-  /*TODO*/
+void pfs_del(uint8_t *name) {
+  pfs_header header;
+  uint16_t sector = pfs_get_header(name, &header);
+  header.name[0] = '\0';
+  pfs_write_sectors(sector, 1, &header);
 }
 
 void pfs_flush(struct pfs_file *file) {
