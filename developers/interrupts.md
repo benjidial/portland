@@ -1,6 +1,6 @@
 # Interrupt listing
 ## Notes
-For some examples on how to use these interrupts from assembly see [the first version of the portland shell](https://github.com/negative-four-potatoes/portland-shell/tree/v0.1.0).  It uses the VGA driver's print null-terminated string interrupt (0x8e), the Keyboard driver's get next line interrupt (0x9a) and the USTAR driver's execute file interrupt (0x95).  See also [the Portland C Library](https://github.com/negative-four-potatoes/portland-c-library).  The inline assembly shows examples of how to call these from assembly, and using the library makes calling these from C much easier and less bulky.  If you are looking for the internal workings of interrupts for contributors to the portland project, see <https://negative-four-potatoes.github.io/portland/contributors/IVT>.
+See also [the Portland C Library](https://github.com/negative-four-potatoes/portland-c-library).  The inline assembly shows examples of how to call these from assembly, and using the library makes calling these from C much easier and less bulky.  If you are looking for the internal workings of interrupts for contributors to the portland project, see <https://negative-four-potatoes.github.io/portland/contributors/IVT>.
 
 ## Listing
 * [Memory management](#memory-management)
