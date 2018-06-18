@@ -15,18 +15,18 @@ For some examples on how to use these interrupts from assembly see [the first ve
 * 0x82 - 0x87: Reserved
 
 ## VGA driver
-* 0x88: [Set position](../contributors/VGA#vga_pos)  
+* 0x88: Set [position](../contributors/VGA#vga_pos)  
   Signature: `void (uint16_t)`
-* 0x89: [Get position](../contributors/VGA#vga_pos)  
+* 0x89: Get [position](../contributors/VGA#vga_pos)  
   Signature: `uint16_t (void)`
-* 0x8a: [Set mask](../contributors/VGA#vga_mask)  
+* 0x8a: Set [mask](../contributors/VGA#vga_mask)  
   Signature: `void (uint16_t)`
-* 0x8b: [Get mask](../contributors/VGA#vga_mask)  
+* 0x8b: Get [mask](../contributors/VGA#vga_mask)  
   Signature: `uint16_t (void)`
 * 0x8c: [Clear](../contributors/VGA#vga_clear)
 * 0x8d: [Print character](../contributors/VGA#vga_pch)
 * 0x8e: [Print null-terminated string](../contributors/VGA#vga_psz)
-* 0x8f: [Get word from buffer](../contributors/VGA#vga_buf)  
+* 0x8f: Get word from [buffer](../contributors/VGA#vga_buf)  
   Signature: `uint16_t (uint16_t)`
 
 ## PFS driver
