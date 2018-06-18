@@ -5,13 +5,13 @@ For some examples on how to use these interrupts from assembly see [the first ve
 ## Listing
 * [Memory management](#memory-management)
 * [VGA driver](#vga-driver)
-* [USTAR driver](#tar16-driver)
+* [PFS driver](#pfs-driver)
 * [Other](#other)
 
 ---
 ## Memory management
-* 0x80: [Allocate block](../contributors/memory#mem_alloc_block)
-* 0x81: [Deallocate block](../contributors/memory#mem_dealloc_block)
+* 0x80: [Allocate](../contributors/memory#mem_alloc)
+* 0x81: [Deallocate](../contributors/memory#mem_dealloc)
 * 0x82 - 0x87: Reserved
 
 ## VGA driver
@@ -24,15 +24,15 @@ For some examples on how to use these interrupts from assembly see [the first ve
 * 0x8e: [Print null-terminated string](../contributors/VGA#vga_psz)
 * 0x8f: [Get word from buffer](../contributors/VGA#vga_buf)
 
-## USTAR driver
-* 0x90: [Open](../contributors/USTAR#tar_open)
-* 0x91: [Close](../contributors/USTAR#tar_close)
-* 0x92: [Seek](../contributors/USTAR#tar_seek)
-* 0x93: [Read](../contributors/USTAR#tar_read)
-* 0x94: [Write](../contributors/USTAR#tar_write)
-* 0x95: [Execute](../contributors/USTAR#tar_exec)
-* 0x96: Reserved
-* 0x97: [Delete file or directory](../contributors/USTAR#tar_del)
+## PFS driver
+* 0x90: [Open](../contributors/PFS#pfs_open)
+* 0x91: [Close](../contributors/PFS#pfs_close)
+* 0x92: [Seek](../contributors/PFS#pfs_seek)
+* 0x93: [Read](../contributors/PFS#pfs_read)
+* 0x94: [Write](../contributors/PFS#pfs_write)
+* 0x95: [Execute](../contributors/PFS#pfs_exec)
+* 0x96: [Flush](../contributors/PFS#pfs_flush)
+* 0x97: [Delete](../contributors/PFS#pfs_del)
 
 ## Keyboard driver
 * 0x98: [Get next scancode](../contributors/keyboard#kbd_gsc)
