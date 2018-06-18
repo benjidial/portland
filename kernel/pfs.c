@@ -17,9 +17,9 @@ struct pfs_header {
   uint16_t size;
   uint8_t sectors;
   /*UNIX timestamps*/
-  uint64_t create_time;
-  uint64_t last_flush_time;
-  uint64_t last_open_time;
+  int64_t create_time;
+  int64_t last_flush_time;
+  int64_t last_open_time;
   /*NUL-terminated string,
     empty for free sectors*/
   uint8_t name[45];
