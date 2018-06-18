@@ -65,13 +65,13 @@ inline void pfs_write_sectors(uint64_t sector, uint16_t n_sectors, uint8_t *buff
 
 void pfs_init(uint8_t drive_id);
 
-uint16_t pfs_get_header(uint8_t *name, pfs_header *header) {
-  /*TODO*/
+uint64_t pfs_get_header(uint8_t *name, pfs_header *header) {
+  
 }
 
 struct pfs_file *pfs_open(uint8_t *name) {
   pfs_header header;
-  uint16_t position = pfs_get_header(name, &header);
+  uint64_t position = pfs_get_header(name, &header);
   /*TODO*/
 }
 
@@ -95,16 +95,15 @@ void pfs_write(struct pfs_file *file, uint16_t count, uint8_t *buffer) {
 
 void pfs_exec(uint8_t *name) {
   struct pfs_file *file = pfs_open(path);
-  /*TODO: Allocate buffer*/
-  pfs_read(file, file->length, buffer);
+  asm volatile (
+    "call %(file->contents)"
+  );
   pfs_close(file);
-  /*TODO: Jump into buffer*/
-  /*TODO: Deallocate buffer*/
 }
 
 void pfs_del(uint8_t *name) {
   pfs_header header;
-  uint16_t sector = pfs_get_header(name, &header);
+  uint64_t sector = pfs_get_header(name, &header);
   header.name[0] = '\0';
   pfs_write_sectors(sector, 1, &header);
 }
