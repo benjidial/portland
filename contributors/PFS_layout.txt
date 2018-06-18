@@ -1,0 +1,26 @@
+502 bytes:
+  Bootloader
+4 bytes:
+  'P', 'F', 'S', ' '
+word:
+  0x0000 (Version)
+word:
+  Number of files
+word:
+  0x55aa
+
+For each file:
+  qword:
+    Creation time (UNIX)
+  qword:
+    Write time (UNIX)
+  qword:
+    Read time (UNIX)
+  qword:
+    Starting sector
+  word:
+    Length in bytes
+  478 bytes:
+    Filename
+
+Files
