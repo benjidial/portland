@@ -25,7 +25,7 @@ void mem_init(void) {
   mem_next->allocated = false;
 }
 
-bool mem_find(uint16_t length) {
+inline bool mem_find(uint16_t length) {
   struct mem_record *origin = mem_next;
   do {
     if (!mem_next->allocated && mem_next->length >= length)
