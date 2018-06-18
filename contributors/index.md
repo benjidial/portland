@@ -2,7 +2,7 @@
 ## Overview
 * [Bootloader](bootloader)
 * [Kernel](kernel)
-  * [USTAR driver](USTAR)
+  * [File system driver](PFS)
   * [Interrupt Vector Table](IVT)
   * [Keyboard driver](keyboard)
   * [Dynamic memory](memory)

@@ -10,9 +10,9 @@ You may want to read <https://en.wikipedia.org/wiki/Interrupt_vector_table> befo
 
 ---
 ## `IVT_START`
-Value: `0x0`
+Value: `0x0000`
 
-This defines the start of the IVT.  We are using `0x0`, since it requires the least setup.
+This defines the start of the IVT, as defined in [the layout](layout).
 
 ## `ivt_set_up`
 Signature: `void (void)`

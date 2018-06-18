@@ -5,7 +5,6 @@ You may want to read <https://en.wikipedia.org/wiki/VGA-compatible_text_mode> be
 ## Listing
 * Constants
   * [`VGA_BUF`](#vga_buf)
-* Variables
   * [`vga_pos`](#vga_pos)
   * [`vga_mask`](#vga_mask)
 * Functions
@@ -20,12 +19,12 @@ Value: `((uint16_t *)0xb8000)`
 This is a pointer to the start of the VGA text buffer.
 
 ## `vga_pos`
-Type: `size_t`
+Value: `(*(uint16_t *)0x0400)`
 
 `vga_pos` stores the position of the next character to be written on the screen in the form row \* 80 + column.  [`VGA_BUF`](#vga_buf) can be indexed with this value to find the relevant word.  At the kernel's start, this is set to zero.
 
 ## `vga_mask`
-Type: `uint16_t`
+Value `(*(uint16_t *)0x0402)`
 
 This is used to keep track of the upper byte of the next word to be written into [`VGA_BUF`](#vga_buf).  The lower byte of this should always be set to 0.
 

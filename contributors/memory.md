@@ -1,63 +1,62 @@
 # Memory management documentation
 ## Listing
 * Constants
-  * [`MEM_AR_START`](#mem_ar_start)
-  * [`MEM_BLOCK_SIZE`](#mem_block_size)
-  * [`MEM_POOL_LEN`](#mem_pool_len)
   * [`MEM_POOL_START`](#mem_pool_start)
   * [`MEM_POOL_END`](#mem_pool_end)
+* Structures
+  * [`mem_record`](#struct-mem_record)
 * Variables
-  * [`mem_next_ar`](#mem_next_ar)
+  * [`mem_next`](#mem_next)
 * Functions
-  * [`mem_clear`](#mem_clear)
-  * [`mem_alloc_block`](#mem_alloc_block)
-  * [`mem_dealloc_block`](#mem_dealloc_block)
+  * [`mem_init`](#mem_init)
+  * [`mem_find`](#mem_find)
+  * [`mem_alloc`](#mem_alloc)
+  * [`mem_dealloc`](#mem_dealloc)
 
 ---
-## `MEM_AR_START`
-Value: `/*TODO*/`
-
-This defines the starting point in memory of the allocation record.  The allocation record is composed of a boolean for each block in the pool describing whether or not that block is allocated.
-
-## `MEM_BLOCK_SIZE`
-Value: `/*TODO*/`
-
-This defines the size of a block in bytes.
-
-## `MEM_POOL_LEN`
-Value: `MEM_POOL_LEN`
-
-This defines the size of the memory pool in bytes.
-
 ## `MEM_POOL_START`
-Value: `(MEM_AR_START + MEM_POOL_LEN * sizeof(bool) / MEM_BLOCK_SIZE)`
+Value: `((void *)0x4000)`
 
-This defines the start of the memory pool.  It is placed at the end of the allocation record.  For a description of the allocation record, see [`MEM_AR_START`](#mem_ar_start).
+This defines the start of the memory pool, as defined in [the layout](layout).
 
 ## `MEM_POOL_END`
-Value: `(MEM_POOL_START + MEM_POOL_LEN)`
+Value: `((void *)(0xffff + 1))`
 
-This defines the end of the memory pool.
+This defines one past the end of the memory pool, as defined in [the layout](layout).
 
-## `mem_next_ar`
-Type: `bool *`
+## `struct mem_record`
+Members:  
+* `void *start`
+* `uint16_t length`
+* `struct mem_record *next`
+* `bool allocated`
 
-This keeps track of the next entry in the allocation record for [`mem_alloc_block`](#mem_alloc_block) to try.  For a description of the allocation record, see [`MEM_AR_START`](#mem_ar_start).
+TODO
 
-## `mem_clear`
+## `mem_next`
+Type: `struct mem_record *`
+
+This keeps track of the next memory record for [`mem_find`](#mem_find) or [`mem_dealloc`](#mem_dealloc) to check.
+
+## `mem_init`
 Signature: `void (void)`
 
-This deallocates all memory blocks, setting each entry in the allocation record to `false`.
+This sets [`mem_next`](#mem_next) to a deallocated record filling the entire dynamic memory region.
 
-## `mem_alloc_block`
-Signature: `void * (void)`
+## `mem_find`
+Signature: `inline bool (uint16_t)`
 
-This tries to allocate a new memory block.  If it can, a pointer to that block is returned.  Otherwise, a null pointer is.
+This is a helper function for [`mem_alloc`](#mem_alloc) to try to find a free memory region of at least the specified size in bytes.
 
-## `mem_dealloc_block`
+## `mem_alloc`
+Signature: `void * (uint16_t)`
+
+This tries to allocate new memory of the length specified in bytes.  If it can, a pointer to the start is returned.  Otherwise, a null pointer is.
+
+## `mem_dealloc`
 Signature: `void (void *)`
 
-This deallocates the memory block specified.  If this block is already deallocated, nothing is changed.
+This deallocates the memory specified.
 
 ---
 **[Back to index](index)**
