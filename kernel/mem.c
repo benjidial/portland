@@ -5,38 +5,64 @@
 /*Copyright 2018 Benji Dial
   Portland memory management*/
 
-#define MEM_BLOCK_SIZE ((size_t)32)
-#define MEM_BLOCK_COUNT 0x600
 #define MEM_POOL_START ((void *)0x4000)
+#define MEM_POOL_END ((void *)(0xffff + 1))
 
-bool mem_ars[MEM_BLOCK_COUNT];
-
-size_t mem_next_ar;
-
-void mem_clear(void) {
-  for (mem_next_ar = 0; mem_next_ar < MEM_BLOCK_COUNT; mem_next_ar++)
-    mem_ars[mem_next_ar] = false;
-  mem_next_ar = 0;
+struct mem_record {
+  void *start;
+  uint16_t length;
+  struct mem_record *next;
+  bool allocated;
 }
 
-void *mem_alloc_block(void) {
-  if (mem_ars[mem_next_ar]) {
-    size_t origin = mem_next_ar;
-    while (++mem_next_ar < MEM_BLOCK_COUNT)
-      if (!mem_ars[mem_next_ar])
-        goto foundBlock;
-    mem_next_ar = -1;
-    while (++mem_next_ar < origin)
-      if (!mem_ars[mem_next_ar])
-        goto foundBlock;
-    return (void *)0x05e0;
-  }
+struct mem_record *mem_next;
 
-foundBlock:
-  mem_ars[mem_next_ar] = true;
-  return MEM_POOL_START + mem_next_ar++ * MEM_BLOCK_SIZE;
+void mem_init(void) {
+  mem_next = /*TODO*/;
+  mem_next->start = MEM_POOL_START;
+  mem_next->length = MEM_POOL_END - MEM_POOL_START;
+  mem_next->next = mem_next;
+  mem_next->allocated = false;
+}
+
+void mem_find_block(uint16_t length) {
+  struct mem_record *origin = mem_next;
+  do {
+    if (!mem_next->allocated && mem_next->length >= length)
+      return true;
+    mem_next = mem_next->next;
+  } while (mem_next != origin);
+  return false;
+}
+
+void *mem_alloc_block(uint16_t length) {
+  if (!mem_find_block(length)) {
+    /*TODO: Consolidate adjacent records*/
+    if (!mem_find_block(length))
+      return NULL;
+  }
+  if (mem_next->length == length) {
+    mem_next->allocated = true;
+    void *ret = mem_next->start;
+    mem_next = mem_next->next;
+    return ret;
+  } else {
+    mem_next->allocated = true;
+    void *ret = mem_next->start;
+    struct mem_record *old_next = mem_next->next;
+    uint16_t old_length = mem_next->length;
+    mem_next->length = length;
+    struct mem_record *new = /*TODO*/;
+    new->start = mem_next->start + length;
+    new->length = old_length - length;
+    new->next = old_next;
+    new->allocated = false;
+    return ret;
+  }
 }
 
 void mem_dealloc_block(void *ptr) {
-  mem_ars[(ptr - MEM_POOL_START) / MEM_BLOCK_SIZE] = false;
+  while (mem_next->start != ptr)
+    mem_next = mem_next->next;
+  mem_next->allocated = false;
 }

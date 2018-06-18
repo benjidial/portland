@@ -27,7 +27,7 @@ struct pfs_header {
 
 /*Sector number of each header*/
 #define pfs_files ((uint64_t *)0x0600)
-#define pfs_n_files (*(uint8_t *)0x0504)
+#define pfs_n_files (*(uint8_t *)0x0404)
 
 struct {
   uint8_t sixteen;

@@ -2,7 +2,7 @@
 ;Portland PFS driver
 
 %define pfs_files 0x0600
-%define pfs_n_files [0x0504]
+%define pfs_n_files [0x0404]
 
 [BITS 16]
 

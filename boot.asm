@@ -2,10 +2,11 @@
 ;Portland bootloader
 
 org 0x7c00
-kernel_address equ 0x1000
+kernel_address equ 0x0e00
 
 [BITS 16]
 
+  mov [0x0405], dl
   mov ah, 0x42
   xor ds, ds
   mov si, dap

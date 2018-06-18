@@ -6,8 +6,8 @@
   Portland VGA driver*/
 
 #define vga_buf ((uint16_t *)0xb8000)
-#define vga_pos (*(uint16_t *)0x0501)
-#define vga_mask (*(uint16_t *)0x0502)
+#define vga_pos (*(uint16_t *)0x0400)
+#define vga_mask (*(uint16_t *)0x0402)
 
 void vga_clear(uint16_t mask) {
   uint16_t word = (vga_mask = mask) | ' ';

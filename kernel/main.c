@@ -9,9 +9,9 @@ extern void ivt_set_up(void);
 void main(void) {
   vga_psz("Clearing display...");
   vga_clear(0x07);
-  vga_psz("Clearing dynamic memory region...");
-  mem_clear();
-  vga_psz("\nInitializing file system records...");
+  vga_psz("Initializing dynamic memory...");
+  mem_init();
+  vga_psz("\nInitializing file system...");
   pfs_init();
   vga_psz("\nSetting up interrupt vector table...");
   ivt_set_up();
