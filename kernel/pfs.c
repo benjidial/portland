@@ -26,7 +26,7 @@ struct pfs_header {
 };
 
 /*Sector number of each header*/
-#define pfs_files ((uint16_t *)0x0600)
+#define pfs_files ((uint64_t *)0x0600)
 #define pfs_n_files (*(uint8_t *)0x0504)
 
 struct {
@@ -65,18 +65,24 @@ inline void pfs_write_sectors(uint64_t sector, uint16_t n_sectors, uint8_t *buff
 
 void pfs_init(uint8_t drive_id);
 
-uint64_t pfs_get_header(uint8_t *name, pfs_header *header) {
-  
+uint8_t pfs_get_header(uint8_t *name, pfs_header *header) {
+  /*TODO*/
 }
 
 struct pfs_file *pfs_open(uint8_t *name) {
   pfs_header header;
-  uint64_t position = pfs_get_header(name, &header);
-  /*TODO*/
+  struct pfs_file *ret = mem_alloc(sizeof(pfs_file));
+  ret->file_id = pfs_get_header(name, &header);
+  ret->length = header.size;
+  ret->position = 0;
+  ret->contents = (uint8_t *)mem_alloc(512 * header.sectors);
+  pfs_read_sectors(pfs_files[ret->file_id] + 1, header.sectors, ret->contents);
+  return file;
 }
 
 void pfs_close(struct pfs_file *file) {
-  /*TODO: deallocate file->contents*/
+  mem_dealloc(file->contents);
+  mem_dealloc(file);
 }
 
 void pfs_seek(struct pfs_file *file, uint16_t position) {
