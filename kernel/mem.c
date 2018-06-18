@@ -25,7 +25,7 @@ void mem_init(void) {
   mem_next->allocated = false;
 }
 
-bool mem_find_block(uint16_t length) {
+bool mem_find(uint16_t length) {
   struct mem_record *origin = mem_next;
   do {
     if (!mem_next->allocated && mem_next->length >= length)
@@ -35,10 +35,10 @@ bool mem_find_block(uint16_t length) {
   return false;
 }
 
-void *mem_alloc_block(uint16_t length) {
-  if (!mem_find_block(length)) {
+void *mem_alloc(uint16_t length) {
+  if (!mem_find(length)) {
     /*TODO: Consolidate adjacent records*/
-    if (!mem_find_block(length))
+    if (!mem_find(length))
       return NULL;
   }
   if (mem_next->length == length) {
@@ -61,7 +61,7 @@ void *mem_alloc_block(uint16_t length) {
   }
 }
 
-void mem_dealloc_block(void *ptr) {
+void mem_dealloc(void *ptr) {
   while (mem_next->start != ptr)
     mem_next = mem_next->next;
   mem_next->allocated = false;
