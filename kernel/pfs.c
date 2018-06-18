@@ -5,29 +5,24 @@
   Portland PFS driver*/
 
 struct pfs_file {
-  uint8_t file_id;
+  uint64_t header;
+  uint64_t sector;
   uint16_t length;
   uint16_t position;
   uint8_t *contents;
 };
 
 struct pfs_header {
-  /*0 for this version*/
-  uint16_t version;
-  uint16_t size;
-  uint8_t sectors;
   /*UNIX timestamps*/
   int64_t create_time;
   int64_t last_flush_time;
   int64_t last_open_time;
+  uint64_t position;
+  uint16_t size;
   /*NUL-terminated string,
     empty for free sectors*/
-  uint8_t name[45];
+  uint8_t name[478];
 };
-
-/*Sector number of each header*/
-#define pfs_files ((uint64_t *)0x0600)
-#define pfs_n_files (*(uint8_t *)0x0404)
 
 struct {
   uint8_t sixteen;
@@ -63,21 +58,26 @@ inline void pfs_write_sectors(uint64_t sector, uint16_t n_sectors, uint8_t *buff
   );
 }
 
-void pfs_init(uint8_t drive_id);
-
-uint8_t pfs_get_header(uint8_t *name, pfs_header *header) {
-  /*TODO*/
+uint64_t pfs_get_header(uint8_t *name, pfs_header *header) {
+  uint64_t sector = 0;
+  do {
+    pfs_read_sectors(++sector, 1, header);
+    for (int i = 0; i < 478; i++)
+      if (header->name[i] != name[i])
+        continue;
+    return sector;
+  } while (pfs_header->position);
+  return 0;
 }
 
 struct pfs_file *pfs_open(uint8_t *name) {
   pfs_header header;
   struct pfs_file *ret = mem_alloc(sizeof(pfs_file));
-  ret->file_id = pfs_get_header(name, &header);
-  ret->length = header.size;
+  ret->header = pfs_get_header(name, &header);
+  ret->sector = header.sector;
   ret->position = 0;
-  ret->contents = (uint8_t *)mem_alloc(512 * header.sectors);
-  pfs_read_sectors(pfs_files[ret->file_id] + 1, header.sectors, ret->contents);
-  return file;
+  pfs_read_sectors(ret->sector, header.size / 512, ret->contents = (uint8_t *)mem_alloc(((((ret->length = header.size) - 1) / 512) + 1 ) * 512));
+  return ret;
 }
 
 void pfs_close(struct pfs_file *file) {
@@ -100,7 +100,7 @@ void pfs_write(struct pfs_file *file, uint16_t count, uint8_t *buffer) {
 }
 
 void pfs_exec(uint8_t *name) {
-  struct pfs_file *file = pfs_open(path);
+  struct pfs_file *file = pfs_open(name);
   asm volatile (
     "call %(file->contents)"
   );
@@ -108,10 +108,7 @@ void pfs_exec(uint8_t *name) {
 }
 
 void pfs_del(uint8_t *name) {
-  pfs_header header;
-  uint64_t sector = pfs_get_header(name, &header);
-  header.name[0] = '\0';
-  pfs_write_sectors(sector, 1, &header);
+  /*TODO*/
 }
 
 void pfs_flush(struct pfs_file *file) {
