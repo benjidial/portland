@@ -1,5 +1,5 @@
 bin/portland.img: boot portland shell textedit
-	./utils/makepfs.py bin/boot.bin bin/fs bin/portland.img
+	./utils/makepfs.py bin/portland.img bin/boot.bin bin/fs/*
 
 bin/boot.bin:
 	mkdir bin
