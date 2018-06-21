@@ -11,10 +11,8 @@ void main(void) {
   vga_clear(0x07);
   vga_psz("Initializing dynamic memory...");
   mem_init();
-  vga_psz("\nInitializing file system...");
-  pfs_init();
   vga_psz("\nSetting up interrupt vector table...");
   ivt_set_up();
   vga_psz("\nLaunching shell.\n");
-  pfs_exec("SHELL");
+  pfs_exec("shell");
 }
