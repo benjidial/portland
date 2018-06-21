@@ -1,4 +1,6 @@
 #!/usr/bin/env python
+#Make Portland File System
+#Written by Benji Dial
 
 from sys import argv
 from datetime import datetime
