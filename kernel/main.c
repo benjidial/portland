@@ -16,5 +16,6 @@ void main(void) {
   vga_psz("\nSetting up interrupt vector table...");
   ivt_set_up();
   vga_psz("\nLaunching shell...");
-  pfs_exec("shell");
+  while (1)
+    pfs_exec("shell");
 }
