@@ -8,19 +8,13 @@
   vga_mask
 
 0x0404 byte:
-  pfs_n_files
-
-0x0405 byte:
   pfs_drive_id
 
 0x0405 - 0x05ff:
   Reserved
-
-0x0600 - 0x0dff:
-  pfs_files
-
-0x0e00 - 0x3fff:
-  Kernel code
+  
+0x0600 - 0x3fff:
+  Kernel code / Reserved
 
 0x4000 - 0xffff:
   Dynamic memory pool
