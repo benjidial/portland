@@ -24,37 +24,47 @@ struct pfs_header {
   uint8_t name[478];
 };
 
-struct {
+struct pfs_dap {
   uint8_t sixteen;
   uint8_t zero;
   uint16_t n_sectors;
   uint16_t offset;
   uint16_t segment;
   uint64_t sector;
-} pfs_dap = {
-  .sixteen = 16,
-  .zero = 0,
-  .segment = 0
 };
+
+struct pfs_dap *pfs_dap_ptr = (pfs_dap *)0x0404;
+uint8_t *pfs_drive_id_ptr = (uint8_t *)0x0414;
+
+inline void pfs_init(void) {
+  pfs_dap_ptr->sixteen = 16;
+  pfs_dap_ptr->zero = 0;
+  pfs_dap_ptr->segment = 0;
+}
 
 inline void pfs_read_sectors(uint64_t sector, uint16_t n_sectors, uint8_t *buffer) {
   asm volatile (
-    "mov ah, 0x42\n"
-    ";TODO: dl\n"
-    "xor ds, ds\n"
-    "mov si, %(&pfs_dap)\n"
-    "mov [%(&pfs_dap.sector)], %(sector)\n"
-    "mov [%(&pfs_dap.n_sectors)], %(n_sectors)\n"
-    "mov [%(&pfs_dap.offset)], %(buffer)\n"
-    "int 0x13"
+    "movb $0x42, %ah\n"
+    "movb [$0x0414], %dh;pfs_drive_id\n"
+    "xor %ds, %ds\n"
+    "movw $0x0404, %si;pfs_dap\n"
+    "movq %sector, [$0x040c]\n"
+    "movw %n_sectors, [$0x0406]\n"
+    "movw %buffer, [$0x0408]\n"
+    "int $0x13"
   );
 }
 
 inline void pfs_write_sectors(uint64_t sector, uint16_t n_sectors, uint8_t *buffer) {
   asm volatile (
-    "mov ah, 0x43\n"
-    ";TODO\n"
-    "int 0x13"
+    "movb $0x43, %ah\n"
+    "movb [$0x0414], %dh;pfs_drive_id\n"
+    "xor %ds, %ds\n"
+    "movw $0x0404, %si;pfs_dap\n"
+    "movq %sector, [$0x040c]\n"
+    "movw %n_sectors, [$0x0406]\n"
+    "movw %buffer, [$0x0408]\n"
+    "int $0x13"
   );
 }
 

@@ -17,7 +17,7 @@ struct mem_record {
 
 struct mem_record *mem_next;
 
-void mem_init(void) {
+inline void mem_init(void) {
   mem_next = /*TODO*/;
   mem_next->start = MEM_POOL_START;
   mem_next->length = MEM_POOL_END - MEM_POOL_START;
