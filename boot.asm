@@ -60,8 +60,8 @@ fail:
   hlt
 
 fail_msg:
-  "Could not find file 'portland'. Halting."
-  ;123456789|123456789|123456789|123456789|=40
+  db "Could not find file 'portland'. Halting."
+     ;123456789|123456789|123456789|123456789| = 40
 
 dap:
   db 16
