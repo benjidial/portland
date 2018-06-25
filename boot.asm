@@ -9,6 +9,7 @@ kernel_size equ kernel_address + 32
 
 [BITS 16]
 
+start:
   mov [0x0414], dl
   mov ah, 0x42
   xor ds, ds
@@ -72,5 +73,9 @@ dap_n_sectors:
 dap_sector:
   dq 0;sector
 
+end:
+%if end - start > 504
+%error "Bootloader too long to fit."
+%endif
   times 510 - ($ - $$) db 0
   db 0x55, 0xaa
