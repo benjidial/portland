@@ -59,7 +59,7 @@ fail:
   hlt
 
 fail_msg:
-  "Failed to load file 'portland'. Halting."
+  "Could not find file 'portland'. Halting."
   ;123456789|123456789|123456789|123456789|=40
 
 dap:
