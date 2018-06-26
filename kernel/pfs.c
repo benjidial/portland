@@ -118,9 +118,12 @@ void pfs_exec(uint8_t *name) {
 }
 
 void pfs_del(uint8_t *name) {
-  /*TODO*/
+  pfs_header header;
+  uint64_t header_sector = pfs_get_header(name, &header);
+  header.name[0] = '\0';
+  pfs_write_sectors(header_sector, 1, &header);
 }
 
 void pfs_flush(struct pfs_file *file) {
-  /*TODO*/
+  pfs_write_sectors(file->sector, (file->length - 1) / 512 + 1, file->contents);
 }
