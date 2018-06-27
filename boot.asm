@@ -13,14 +13,28 @@ start:
   mov [0x0414], dl
   xor ax, ax
   mov ds, ax
-  mov ah, 0x42
   mov si, dap
 
 loop:
+  mov ah, 0x42
   int 0x13
-  test qword [kernel_sector], qword [kernel_sector]
+  mov ax, word [kernel_sector]
+  test ax, ax
+  jnz inc
+  mov ax, word [kernel_sector+1]
+  test ax, ax
+  jnz inc
+  mov ax, word [kernel_sector+2]
+  test ax, ax
+  jnz inc
+  mov ax, word [kernel_sector+3]
+  test ax, ax
   jz fail
-  add qword [dap_sector], 1
+inc:
+  add word [dap_sector],   1
+  adc word [dap_sector+1], 0
+  adc word [dap_sector+2], 0
+  adc word [dap_sector+3], 0
 
   cmp byte [kernel_filename], 'p'
   jne loop
@@ -38,29 +52,32 @@ loop:
   jne loop
   cmp byte [kernel_filename+7], 'd'
   jne loop
-  cmp byte [kernel_filename+8], '\0'
+  cmp byte [kernel_filename+8], byte 0
   jne loop
 
-  mov dx, 0
+  xor dx, dx
   mov ax, [kernel_size]
   mov cx, 512
   div cx
   mov word [dap_n_sectors], ax
-  mov word [dap_sector],   [kernel_sector]
-  mov word [dap_sector+1], [kernel_sector+1]
-  mov word [dap_sector+2], [kernel_sector+2]
-  mov word [dap_sector+3], [kernel_sector+3]
+  mov ax, word [kernel_sector]
+  mov word [dap_sector],   ax
+  mov ax, word [kernel_sector+1]
+  mov word [dap_sector+1], ax
+  mov ax, word [kernel_sector+2]
+  mov word [dap_sector+2], ax
+  mov ax, word [kernel_sector+3]
+  mov word [dap_sector+3], ax
   mov ah, 0x42
   int 0x13
   jmp kernel_address
 
 fail:
-  xor ax, ax
-  mov es, ax
+  xor dx, dx
+  mov es, dx
   mov ax, 0x1300
   mov bx, 0x0004
   mov cx, 40
-  mov dx, 0
   mov bp, fail_msg
   int 0x10
   hlt
