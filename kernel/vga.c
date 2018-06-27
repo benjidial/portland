@@ -1,9 +1,10 @@
 #include <stdint.h>
 #include <stddef.h>
-#include "spk.c"
+/*v0.3.0 - #include "spk.c"*/
 
-/*Copyright 2018 Benji Dial
-  Portland VGA driver*/
+/*Portland VGA driver
+  Copyright 2018 Benji Dial
+  Under Gnu Public License v3.0*/
 
 #define vga_buf ((uint16_t *)0xb8000)
 #define vga_pos (*(uint16_t *)0x0400)
@@ -18,9 +19,9 @@ void vga_clear(uint16_t mask) {
 
 void vga_pch(uint8_t ch) {
   switch (ch) {
-  case '\a':
-    spk_boop();
-    break;
+  /*v0.3.0 - case '\a':
+               spk_boop();
+               break;*/
   case '\b':
     vga_buf[--vga_pos] = vga_mask | ' ';
     break;
