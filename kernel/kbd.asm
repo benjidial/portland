@@ -1,5 +1,6 @@
-;Copyright 2018 Benji Dial
 ;Portland PS/2 keyboard driver
+;Copyright 2018 Benji Dial
+;Under Gnu Public License 3.0
 
 [BITS 16]
 
@@ -16,74 +17,14 @@ loop:
 
 kbd_scan_table_0:
   ;TODO: Finish this
-  resb 0x0d
-  db '\t';0x0d
-  db '`';0x0e
-  resb 0x15 - 0x0f
-  db 'q';0x15
-  db '1';0x16
-  resb 0x1a - 0x17
-  db 'z';0x1a
-  db 's';0x1b
-  db 'a';0x1c
-  db 'w';0x1d
-  db '2';0x1e
-  resb 0x21 - 0x1f
-  db 'c';0x21
-  db 'x';0x22
-  db 'd';0x23
-  db 'e';0x24
-  db '4';0x25
-  db '3';0x26
-  resb 0x29 - 0x27
-  db ' ';0x29
-  db 'v';0x2a
-  db 'f';0x2b
-  db 't';0x2c
-  db 'r';0x2d
-  db '5';0x2e
-  resb 0x31 - 0x2f
-  db 'n';0x31
-  db 'b';0x32
-  db 'h';0x33
-  db 'g';0x34
-  db 'y';0x35
-  resb 0x46 - 0x36
-  db '6';0x46
-  resb 0x3a - 0x47
-  db 'm';0x3a
-  db 'j';0x3b
-  db 'u';0x3c
-  db '7';0x3d
-  db '8';0x3e
-  resb 0x41 - 0x3f
-  db ',';0x41
-  db 'k';0x42
-  db 'i';0x43
-  db 'o';0x44
-  db '0';0x45
-  db '9';0x46
-  resb 0x49 - 0x47
-  db '.';0x49
-  db '/';0x4a
-  db 'l';0x4b
-  db ';';0x4c
-  db 'p';0x4d
-  db '-';0x4e
-  resb 0x52 - 0x4f
-  db '\'';0x52
-  resb 0x54 - 0x53
-  db '[';0x54
-  db '=';0x55
-  resb 0x5a - 0x56
-  db '\n';0x5a
-  db ']';0x5b
-  resb 0x5d - 0x5c
-  db '\\';0x5d
-  resb 0x66 - 0x5e
-  db '\b';0x66
-  resb 0x100 - 0x67
+  db 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, "\t`", 0     ;0x0*
+  db 0, 0, 0, 0, 0, "q1", 0, 0, 0, "zsaw2", 0            ;0x1*
+  db 0, "cxde43", 0, 0, " vftr5", 0                      ;0x2*
+  db 0, "nbhgy6", 0, 0, 0, "mju78", 0                    ;0x3*
+  db 0, ",kio09", 0, 0, "./l;p-", 0                      ;0x4*
+  db 0, 0, "'", 0, "[=", 0, 0, 0, 0, "\n]", 0, "\\", 0, 0;0x5*
+  db 0, 0, 0, 0, 0, 0, "\b", 0, 0, 0, 0, 0, 0, 0, 0, 0   ;0x6*
+  times 0xa0 db 0
 
 kbd_scan_table_1:
-  ;TODO: Finish this
-  resb 256
+  times 0x100 db 0
