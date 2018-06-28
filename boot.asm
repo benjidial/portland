@@ -36,7 +36,7 @@ inc:
   adc word [dap_sector+2], 0
   adc word [dap_sector+3], 0
 
-  cmp byte [kernel_filename], 'p'
+  cmp byte [kernel_filename],   'p'
   jne loop
   cmp byte [kernel_filename+1], 'o'
   jne loop
@@ -46,7 +46,7 @@ inc:
   jne loop
   cmp byte [kernel_filename+4], 'l'
   jne loop
-  cmp byte[kernel_filename+5], 'a'
+  cmp byte [kernel_filename+5], 'a'
   jne loop
   cmp byte [kernel_filename+6], 'n'
   jne loop
