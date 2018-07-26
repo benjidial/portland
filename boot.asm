@@ -30,6 +30,7 @@ loop:
   mov ax, word [kernel_sector+3]
   test ax, ax
   jz fail
+
 inc:
   add word [dap_sector],   1
   adc word [dap_sector+1], 0
@@ -70,6 +71,14 @@ inc:
   mov word [dap_sector+3], ax
   mov ah, 0x42
   int 0x13
+
+  mov es, dx
+  mov ax, 0x1300
+  mov bx, 0x0002
+  mov cx, 29
+  mov bp, succ_msg
+  int 0x10
+
   jmp kernel_address
 
 fail:
@@ -77,14 +86,20 @@ fail:
   mov es, dx
   mov ax, 0x1300
   mov bx, 0x0004
-  mov cx, 40
+  mov cx, 34
   mov bp, fail_msg
   int 0x10
+hlt:
   hlt
+  jmp hlt
+
+succ_msg:
+  db "Portland loaded.  Starting..."
+     ;123456789|123456789|123456789 = 29
 
 fail_msg:
-  db "Could not find file 'portland'. Halting."
-     ;123456789|123456789|123456789|123456789| = 40
+  db "Could not find portland.  Halting."
+     ;123456789|123456789|123456789|1234 = 34
 
 dap:
   db 16
