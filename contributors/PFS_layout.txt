@@ -1,29 +1,33 @@
-504 bytes:
-  Implementation specific
-4 bytes:
-  'P', 'F', 'S', ' '
-word:
-  0x0000 (Version)
-word:
-  Implementation specific
+Sector 0:
+  504 bytes:
+    Implementation specific
+  4 bytes:
+    'P', 'F', 'S', ' '
+  word:
+    0x0001 (Version)
+  word:
+    Implementation specific
+Sectors 1 - 15:
+  For each file:
+    dword:
+      Sector number of file*
+  dword:
+    0x0000
+  Remainder:
+    Implementation specific
 
-For each file:
+*actually sector number of "info" sector which is immediately followed by the file
+
+"Info" sector:
   qword:
     Creation time (UNIX)
   qword:
     Write time (UNIX)
   qword:
     Read time (UNIX)
-  qword:
-    Starting sector
   word:
-    Length in bytes
-  478 bytes:
-    Filename
-
-3 qwords:
-  Implementation specific
-qword:
-  0x0000 0000 0000 0000
-480 bytes:
-  Implementation specific
+    Length of file in bytes
+  byte:
+    Sectors reserved for file
+  Remainder:
+    Name of file

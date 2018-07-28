@@ -1,23 +1,8 @@
-0x0000 - 0x03ff:
-  Interrupt vector table
-
-0x0400 word:
-  vga_pos
-
-0x0402 word:
-  vga_mask
-
-0x0404 - 0x0413 (16 bytes):
-  pfs_dap
-
-0x0414 bytes:
-  pfs_drive_id
-
-0x0415 - 0x05ff:
+0x0000 - 0x3fff:
   Reserved
-  
-0x0600 - 0x3fff:
-  Kernel code / Reserved
 
-0x4000 - 0xffff:
-  Dynamic memory pool
+0x4000 - 0x7fff:
+  Stack
+
+0x8000 - 0xffff:
+  Kernel
