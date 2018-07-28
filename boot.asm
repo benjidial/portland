@@ -1,8 +1,9 @@
-;Copyright 2018 Benji Dial
 ;Portland bootloader
+;Copyright 2018 Benji Dial
+;Under GNU GPL v3.0
 
 org 0x7c00
-kernel_address equ 0x0600
+kernel_address equ 0x8000
 kernel_filename equ kernel_address + 34
 kernel_sector equ kernel_address + 24
 kernel_size equ kernel_address + 32
@@ -10,7 +11,6 @@ kernel_size equ kernel_address + 32
 [BITS 16]
 
 start:
-  mov [0x0414], dl
   xor ax, ax
   mov ds, ax
   mov si, dap
