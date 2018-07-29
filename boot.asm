@@ -97,13 +97,11 @@ fail_msg:
      ;123456789|123456789|123456789|1234 = 34
 
 dap:
-  db 16
-  db 0
+  dw 0x0010
 dap_n_sectors:
   dw 1
 buffer:
-  dw 0x7e00
-  dw 0x0000
+  dd 0x00007e00
 dap_sector:
   dq 1
 
@@ -112,4 +110,4 @@ end:
 %error "Bootloader too long to fit."
 %endif
   times 510 - ($ - $$) db 0
-  db 0x55, 0xaa
+  dw 0xaa55

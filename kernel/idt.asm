@@ -44,7 +44,7 @@ IDT_ENTRY int_null;0x1e: security exception
 IDT_ENTRY int_null;0x1f: FPU error
 
 IDT_ENTRY int_null;0x20: PIT
-IDT_ENTRY int_kbd;0x21: keyboard
+IDT_ENTRY int_null;0x21: keyboard
 IDT_ENTRY int_null;0x22: cascade
 IDT_ENTRY int_null;0x23: COM2
 IDT_ENTRY int_null;0x24: COM1
@@ -98,4 +98,4 @@ IDT_ENTRY null;0x5d: portland reserved
 IDT_ENTRY null;0x5e: portland reserved
 IDT_ENTRY null;0x5f: portland reserved
 
-time (0xff-0x5f) IDT_ENTRY null;0x60 - 0xff: portland reserved
+times (0xff-0x5f) IDT_ENTRY null;0x60 - 0xff: portland reserved

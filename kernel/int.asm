@@ -87,7 +87,7 @@ int_clear_screen:
   mov ah, [vga_style]
   mov al, ' '
 .loop:
-  cmp ebx, VGA_BUF+2*80*25
+  cmp ebx, VGA_BUF+4000;mode is 80x25
   je .done
   mov [ebx], ax
   add ebx, 2
@@ -102,11 +102,14 @@ int_set_style:
   iret
 
 int_move_cursor:
-  push dx
-  mov [vga_ofs], VGA_BUF
-  mov dx, ah
-  mul dx, 80
-  add dx, al
-  add [vga_ofs], dx
-  pop dx
+  push ax
+  push dl
+  mov dl, ah
+  mul byte 80;mode is 80x25
+  add ax, dl
+  pop dl
+  shl ax, 1
+  mov dword [vga_ofs], VGA_BUF
+  add [vga_ofs], ax;ax should be less than 0x8000
+  pop ax
   iret
