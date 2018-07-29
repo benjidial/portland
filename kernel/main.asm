@@ -44,15 +44,15 @@ far_jump:
   out 0xa1, al
   lidt [idt_index]
 
-  call pfs_init
-  push shell_msg
-  call vga_psz
-  push shell_name
-  call pfs_exec
+  ;Initialize PFS driver
+  mov ebx, shell_msg
+  int 0x4a
+  mov ebx, shell_name
+  int 0x46
 
-  call vga_clear
-  push shutdown_msg
-  call vga_psz
+  int 0x4c
+  mov ebx, shutdown_msg
+  int 0x4a
 
 hlt:
   hlt

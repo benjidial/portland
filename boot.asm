@@ -2,99 +2,94 @@
 ;Copyright 2018 Benji Dial
 ;Under GNU GPL v3.0
 
-org 0x7c00
-kernel_address equ 0x8000
-kernel_filename equ kernel_address + 34
-kernel_sector equ kernel_address + 24
-kernel_size equ kernel_address + 32
-
-[BITS 16]
+  org 0x7c00
+  bits 32
 
 start:
   xor ax, ax
   mov ds, ax
   mov si, dap
 
-loop:
+loop_o:
   mov ah, 0x42
   int 0x13
-  mov ax, word [kernel_sector]
-  test ax, ax
-  jnz inc
-  mov ax, word [kernel_sector+1]
-  test ax, ax
-  jnz inc
-  mov ax, word [kernel_sector+2]
-  test ax, ax
-  jnz inc
-  mov ax, word [kernel_sector+3]
-  test ax, ax
-  jz fail
+  mov ebx, 0x7e04
 
-inc:
-  add word [dap_sector],   1
-  adc word [dap_sector+1], 0
-  adc word [dap_sector+2], 0
-  adc word [dap_sector+3], 0
+loop_i:
+  cmp byte [ebx], 'p'
+  jne skip
+  cmp byte [ebx+1], 'o'
+  jne skip
+  cmp byte [ebx+2], 'r'
+  jne skip
+  cmp byte [ebx+3], 't'
+  jne skip
 
-  cmp byte [kernel_filename],   'p'
-  jne loop
-  cmp byte [kernel_filename+1], 'o'
-  jne loop
-  cmp byte [kernel_filename+2], 'r'
-  jne loop
-  cmp byte [kernel_filename+3], 't'
-  jne loop
-  cmp byte [kernel_filename+4], 'l'
-  jne loop
-  cmp byte [kernel_filename+5], 'a'
-  jne loop
-  cmp byte [kernel_filename+6], 'n'
-  jne loop
-  cmp byte [kernel_filename+7], 'd'
-  jne loop
-  cmp byte [kernel_filename+8], byte 0
-  jne loop
+  mov dh, byte [dap_sector]
+  mov dword [dap_sector], dword [ebx-4]
+  mov dword [buffer], 0x8000
+  mov ah, 0x42
+  int 0x13
 
+  cmp [0x801f], 'l'
+  jne false_alarm
+  cmp [0x8020], 'a'
+  jne false_alarm
+  cmp [0x8021], 'n'
+  jne false_alarm
+  cmp [0x8022], 'd'
+  jne false_alarm
+
+  mov cl, dl
   xor dx, dx
-  mov ax, [kernel_size]
-  mov cx, 512
-  div cx
-  mov word [dap_n_sectors], ax
-  mov ax, word [kernel_sector]
-  mov word [dap_sector],   ax
-  mov ax, word [kernel_sector+1]
-  mov word [dap_sector+1], ax
-  mov ax, word [kernel_sector+2]
-  mov word [dap_sector+2], ax
-  mov ax, word [kernel_sector+3]
-  mov word [dap_sector+3], ax
+  mov ax, [0x8018]
+  dec ax
+  div 512
+  inc ax
+  mov dl, cl
+  mov [dap_n_sectors], al
+  inc qword [dap_sector]
+
   mov ah, 0x42
   int 0x13
 
-  mov es, dx
+  xor ax, ax
+  mov es, ax
   mov ax, 0x1300
   mov bx, 0x0002
   mov cx, 29
   mov bp, succ_msg
   int 0x10
 
-  jmp kernel_address
+  jmp 0x8000
 
-fail:
-  xor dx, dx
-  mov es, dx
+false_alarm:
+  mov byte [dap_sector], dh
+  mov dword [buffer], 0x7e00
+
+skip:
+  add ebx, 8
+  cmp ebx, 0x8004
+  jne loop_i
+  inc byte [dap_sector]
+  cmp byte [dap_sector], 16
+  jne loop_o
+
+  xor ax, ax
+  mov es, ax
   mov ax, 0x1300
   mov bx, 0x0004
   mov cx, 34
   mov bp, fail_msg
   int 0x10
+
+  cli
 hlt:
   hlt
   jmp hlt
 
 succ_msg:
-  db "Portland loaded.  Starting..."
+  db "portland loaded.  Starting..."
      ;123456789|123456789|123456789 = 29
 
 fail_msg:
@@ -105,11 +100,12 @@ dap:
   db 16
   db 0
 dap_n_sectors:
-  dw 1;n_sectors
-  dw kernel_address;buffer
-  dw 0x0000;buffer segment
+  dw 1
+buffer:
+  dw 0x7e00
+  dw 0x0000
 dap_sector:
-  dq 0;sector
+  dq 1
 
 end:
 %if end - start > 504
