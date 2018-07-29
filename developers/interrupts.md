@@ -118,8 +118,8 @@ See also [the Portland C Library](https://github.com/benjidial/portland-c-librar
   * `al`: color
 
 * `0x4e`: move cursor
-  * `al`: column
-  * `ah`: row
+  * `al`: row
+  * `ah`: column
 
 * `0x4f`: reserved
 
