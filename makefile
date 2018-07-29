@@ -16,6 +16,6 @@ shell:
 	mv shell/out/* part/fs/
 
 clean:
-	rm -r bin fs out
+	rm -r part out
 	make clean -C kernel
 	make clean -C shell
