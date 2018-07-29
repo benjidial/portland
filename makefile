@@ -6,16 +6,16 @@ part/boot.bin:
 	nasm -o part/boot.bin boot.asm
 
 portland:
+	make -C kernel
 	mkdir fs
-	#TODO
+	mv kernel/out/* fs
 
 shell:
+	make -C shell
 	mkdir fs
-	#TODO
-
-textedit:
-	mkdir fs
-	#TODO
+	mv shell/out/* fs/
 
 clean:
 	rm -r bin fs out
+	make clean -C kernel
+	make clean -C shell
