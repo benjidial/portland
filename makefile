@@ -1,19 +1,19 @@
-out/portland.img: part/boot.bin portland shell textedit
-	./utils/makepfs.py out/portland.img bin/boot.bin fs/*
+floppy: boot portland shell
+	./utils/makepfs.py out/portland.img part/boot.bin part/fs/*
 
-part/boot.bin:
+boot:
 	mkdir part
-	nasm -o part/boot.bin boot.asm
+	nasm -f bin -o part/boot.bin boot.asm
 
 portland:
 	make -C kernel
-	mkdir fs
-	mv kernel/out/* fs
+	mkdir -p part/fs
+	mv kernel/out/* part/fs/
 
 shell:
 	make -C shell
-	mkdir fs
-	mv shell/out/* fs/
+	mkdir -p part/fs
+	mv shell/out/* part/fs/
 
 clean:
 	rm -r bin fs out
