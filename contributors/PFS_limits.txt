@@ -1,0 +1,6 @@
+Max number of files: 959
+Max file size: 64KiB
+Min disk size: 8KiB
+Max disk size: 4GiB+64KiB
+Max filename length: 484 characters
+Times: 64-bit signed UNIX timestamps
