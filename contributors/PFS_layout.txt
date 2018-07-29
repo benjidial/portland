@@ -11,8 +11,10 @@ Sectors 1 - 15:
   For each file:
     dword:
       Sector number of file*
+    dword:
+      First four characters of name of file (padded with 0x00 if necessary)
   dword:
-    0x0000
+    0x00000000
   Remainder:
     Implementation specific
 
@@ -30,4 +32,4 @@ Sectors 1 - 15:
   byte:
     Sectors reserved for file
   Remainder:
-    Name of file
+    Name of file, terminated with 0x00
