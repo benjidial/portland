@@ -12,7 +12,7 @@ See also [the Portland C Library](https://github.com/benjidial/portland-c-librar
 ---
 ## PFS driver
 * `0x40`: read from a file
-  * `eax`: starting position in file
+  * `ax`: starting position in file
   * `ebx`: pointer to [file structure](../structures#file)
   * `cx`: number of bytes to read
   * `edx`: pointer to buffer to read into
@@ -24,7 +24,7 @@ See also [the Portland C Library](https://github.com/benjidial/portland-c-librar
     * `0x11`: file not that big
 
 * `0x41`: write to a file
-  * `eax`: starting position in file
+  * `ax`: starting position in file
   * `ebx`: pointer to [file structure](structures#file)
   * `cx`: number of bytes to write
   * `edx`: pointer to buffer to read from
