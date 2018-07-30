@@ -44,11 +44,13 @@ far_jump:
   out 0xa1, al
   lidt [idt_index]
 
-  ;Initialize PFS driver
+  ;TODO: Initialize PFS driver
   mov ebx, shell_msg
   int 0x4a
   mov ebx, shell_name
   int 0x46
+  cmp al, 0x03
+  je no_shell
 
   int 0x4c
   mov ebx, shutdown_msg
@@ -58,8 +60,14 @@ hlt:
   hlt
   jmp hlt
 
+no_shell:
+  mov ebx, no_shell_msg
+  int 0x4a
+  jmp hlt
+
 shell_msg db "Launching shell...", 0
 shell_name db "shell", 0
+no_shell_msg db 10, "Could not find shell.  Halting.", 0
 shutdown_msg db "You may now power off your computer.", 0
 
 gdt:
