@@ -1,0 +1,14 @@
+Bootloader:
+  0x7c00 - 0x7dff: bootloader code
+  0x7e00 - 0x7fff: buffer for checking reserved sectors of disk
+  0x8000 - 0x81ff: buffer for checking info sector of files
+  Once kernel found:
+    0x7e00 - 0x7fff: info to kernel
+      0x7e00 byte: disk id
+      0x7e02 word: kernel size
+    0x8000 - ?: kernel code
+
+Kernel:
+  0x7e00 - 0x7fff: info from bootloader
+    See "info to kernel" in bootloader section
+  0x8000 - ?: kernel code
