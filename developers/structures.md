@@ -4,7 +4,7 @@
 
 ---
 ## Keycode
-See [keycode table](keycodes.txt)
+See [keycode table](../contributors/keycodes.txt)
 
 ---
 **[Back to index](index)**
