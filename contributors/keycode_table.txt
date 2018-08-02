@@ -1,0 +1,10 @@
+          0   1   2   3   4   5   6   7   8   9   a   b   c   d   e   f
+         ---------------------------------------------------------------
+  0x0X:  ---  1   2   3   4   5   6   7   8   9   0   -   =  Tab  q   w
+  0x1X:   e   r   t   y   u   i   o   p   [   ]   NL  a   s   d   f   g
+  0x2X:   h   j   k   l   ;   '   `   \   z   x   c   v   b   n   m   ,
+  0x3X:   .   /  Spc Esc Bsp Nm* Nm7 Nm8 Nm9 Nm- Nm4 Nm5 Nm6 Nm+ Nm1 Nm2
+  0x4X:  Nm3 Nm0 Nm. NmE Nm/  F1  F2  F3  F4  F5  F6  F7  F8  F9 F10 F11
+  0x5X:  F12 Hme  Up PgU Lft Rgt End Dwn PgD Del Men PSc Prv Nxt Mte Cal
+  0x6X:  Ply Stp VDn VUp MyC Eml Sel WHm WSr WFv WRf WSp WFw WBk --- ---
+  0x7X:  LCt RCt LSh RSh LAl RAl LSp RSp Cap Num Scl Ins Pwr Slp Wke Pse
