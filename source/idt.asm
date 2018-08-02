@@ -87,15 +87,15 @@ IDT_ENTRY int_clear_screen;0x4c: clear screen
 IDT_ENTRY int_set_color   ;0x4d: set color
 IDT_ENTRY int_move_cursor ;0x4e: move cursor
 IDT_ENTRY null            ;0x4f: portland reserved
-                             ;implemented in kbd.asm
-IDT_ENTRY int_kbd_char       ;0x50: get character from keyboard
-IDT_ENTRY int_kbd_string     ;0x51: get string from keyboard
-IDT_ENTRY int_kbd_line       ;0x52: get line from keyboard
-IDT_ENTRY int_kbd_fake_char  ;0x53: put a character in the keyboard buffer
-IDT_ENTRY int_kbd_fake_string;0x54: put a string in the keyboard buffer
-IDT_ENTRY null               ;0x55: portland reserved
-IDT_ENTRY null               ;0x56: portland reserved
-IDT_ENTRY null               ;0x57: portland reserved
+                        ;implemented in kbd.asm
+IDT_ENTRY int_kbd_char  ;0x50: get character from keyboard
+IDT_ENTRY int_kbd_string;0x51: get string from keyboard
+IDT_ENTRY int_kbd_line  ;0x52: get line from keyboard
+IDT_ENTRY int_kbd_fake  ;0x53: put a keycode in the keyboard buffer
+IDT_ENTRY null          ;0x54: portland reserved
+IDT_ENTRY int_kbd_code  ;0x55: get keycode from keyboard
+IDT_ENTRY int_kbd_wipe  ;0x56: clear the keyboard buffer
+IDT_ENTRY null          ;0x57: portland reserved
                          ;implemented in mem.asm
 IDT_ENTRY int_mem_alloc  ;0x58: allocate memory
 IDT_ENTRY int_mem_dealloc;0x59: deallocate memory
