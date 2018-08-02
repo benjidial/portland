@@ -107,7 +107,7 @@ See also [the Portland C Library](https://github.com/benjidial/portland-c-librar
   * `al` after:
     * `0x00`: success
     * `0x10`: `ebx` is `0x00000000`
-  * Cobbers `ah`, `ebx`, `edx`
+  * Clobbers `ah`, `ebx`, `edx`
 
 * `0x4b`: print [word string](structures#word-string)
   * `ebx`: pointer to word string to print
@@ -121,6 +121,7 @@ See also [the Portland C Library](https://github.com/benjidial/portland-c-librar
 
 * `0x4d`: set color
   * `al`: color
+  * Clobbers nothing
 
 * `0x4e`: move cursor
   * `al`: row
@@ -144,7 +145,7 @@ See also [the Portland C Library](https://github.com/benjidial/portland-c-librar
     * `0x00`: blocking
     * `0x01`: nonblocking
   * `ebx`: pointer to buffer to put string into
-  * `cx`: maximum string length
+  * `cx`: maximum string length (if blocking, block until full)
   * `al` after:
     * `0x00`: success
     * `0x10`: `ebx` is `0x00000000` or `al` is a bad value
@@ -165,11 +166,7 @@ See also [the Portland C Library](https://github.com/benjidial/portland-c-librar
     * `0x00`: success
     * `0x01`: keyboard buffer full
 
-* `0x54`: put string into keyboard buffer
-  * `ebx`: pointer to buffer to put [string](structures#byte-string) into
-  * `al` after:
-    * `0x00`: success
-    * `0x10`: `ebx` is `0x00000000`
+* `0x56`: reserved
 
 * `0x55`: get keycode from keyboard
   * `al`:
