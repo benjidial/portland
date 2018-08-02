@@ -96,37 +96,37 @@ See also [the Portland C Library](https://github.com/benjidial/portland-c-librar
 ## VGA driver
 * `0x48`: print byte
   * `al`: byte to print (reserved if `0x00`)
-  * Clobbers `ebx`
+  * Clobbers: `ebx`
 
 * `0x49`: print word
   * `ax`: word to print (reserved if `0xXX00`)
-  * Clobbers `ebx`
+  * Clobbers: `ebx`
 
 * `0x4a`: print [byte string](structures#byte-string)
   * `ebx`: pointer to byte string to print
   * `al` after:
     * `0x00`: success
     * `0x10`: `ebx` is `0x00000000`
-  * Clobbers `ah`, `ebx`, `edx`
+  * Clobbers: `ah`, `ebx`, `edx`
 
 * `0x4b`: print [word string](structures#word-string)
   * `ebx`: pointer to word string to print
   * `al` after:
     * `0x00`: success
     * `0x10`: `ebx` is `0x00000000`
-  * Clobbers `ah`, `ebx`, `edx`
+  * Clobbers: `ah`, `ebx`, `edx`
 
 * `0x4c`: clear the screen
-  * Clobbers `ax`, `ebx`
+  * Clobbers: `ax`, `ebx`
 
 * `0x4d`: set color
   * `al`: color
-  * Clobbers nothing
+  * Clobbers: nothing
 
 * `0x4e`: move cursor
   * `al`: row
   * `ah`: column
-  * Clobbers `ax`, `dl`
+  * Clobbers: `ax`, `dl`
 
 * `0x4f`: reserved
 
@@ -135,10 +135,8 @@ See also [the Portland C Library](https://github.com/benjidial/portland-c-librar
   * `al`:
     * `0x00`: blocking
     * `0x01`: nonblocking
-    * `0x02`: blocking peek
-    * `0x03`: nonblocking peek
   * `dl` after: character (undefined if nonblocking and none was available)
-  * Clobbers `ax`
+  * Clobbers: `ah`
 
 * `0x51`: get [string](structures#byte-string) from keyboard
   * `al`:
@@ -169,13 +167,15 @@ See also [the Portland C Library](https://github.com/benjidial/portland-c-librar
 * `0x56`: reserved
 
 * `0x55`: get keycode from keyboard
-  * `al`:
-    * `0x00`: blocking
+  * `al` (bitfield):
     * `0x01`: nonblocking
-    * `0x02`: blocking peek
-    * `0x03`: nonblocking peek
+    * `0x02`: peek
+    * `0x04`: skip handling (ignored if peek is set)
+  * `dl` after: keycode (undefined if nonblocking and buffer is empty)
+  * Clobbers: `ax`, `dh`
 
 * `0x56`: clear keyboard buffer
+  * Clobbers: nothing
 
 * `0x57`: reserved
 
