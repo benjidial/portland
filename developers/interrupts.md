@@ -128,17 +128,16 @@ See also [the Portland C Library](https://github.com/benjidial/portland-c-librar
   * `al`:
     * `0x00`: blocking
     * `0x01`: nonblocking
-  * `al` after:
-    * `0x00`: success
-    * `0x01`: `al` is a bad value
-  * `dl` after: character (`0x00` if blocking and none was available)
+    * `0x02`: blocking peek
+    * `0x03`: nonblocking peek
+  * `dl` after: character (undefined if nonblocking and none was available)
 
 * `0x51`: get [string](structures#byte-string) from keyboard
   * `al`:
     * `0x00`: blocking
     * `0x01`: nonblocking
   * `ebx`: pointer to buffer to put string into
-  * `cx`: string length
+  * `cx`: maximum string length
   * `al` after:
     * `0x00`: success
     * `0x10`: `ebx` is `0x00000000` or `al` is a bad value
@@ -151,18 +150,30 @@ See also [the Portland C Library](https://github.com/benjidial/portland-c-librar
   * `cx`: maximum string length
   * `al` after:
     * `0x00`: success
-    * `0x01`: `ebx` is `0x00000000` or `al` is a bad value
+    * `0x10`: `ebx` is `0x00000000` or `al` is a bad value
 
-* `0x53`: put character into keyboard buffer
-  * `al`: character
+* `0x53`: put keycode into keyboard buffer
+  * `al`: keycode
+  * `al` after:
+    * `0x00`: success
+    * `0x01`: keyboard buffer full
 
 * `0x54`: put string into keyboard buffer
   * `ebx`: pointer to buffer to put [string](structures#byte-string) into
   * `al` after:
     * `0x00`: success
-    * `0x01`: `ebx` is `0x00000000`
+    * `0x10`: `ebx` is `0x00000000`
 
-* `0x55` - `0x57`: reserved
+* `0x55`: get keycode from keyboard
+  * `al`:
+    * `0x00`: blocking
+    * `0x01`: nonblocking
+    * `0x02`: blocking peek
+    * `0x03`: nonblocking peek
+
+* `0x56`: clear keyboard buffer
+
+* `0x57`: reserved
 
 ## Memory managerment
 * `0x58`: allocate memory
