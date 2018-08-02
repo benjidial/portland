@@ -28,6 +28,15 @@ far_jump:
   mov es, ax
   mov esp, TODO
 
+.kbd_resend:
+  mov al, 0xf0
+  out 0x64, al
+  mov al, 0x01
+  out 0x60, al
+  in al, 0x64
+  cmp al, 0xfe
+  je .kbd_resend
+
   mov al, 0x11
   out 0x20, al
   out 0xa0, al
@@ -44,7 +53,6 @@ far_jump:
   out 0xa1, al
   lidt [idt_index]
 
-  ;TODO: Initialize PFS driver
   mov ebx, shell_msg
   int 0x4a
   mov ebx, shell_name
