@@ -96,23 +96,28 @@ See also [the Portland C Library](https://github.com/benjidial/portland-c-librar
 ## VGA driver
 * `0x48`: print byte
   * `al`: byte to print (reserved if `0x00`)
+  * Clobbers `ebx`
 
 * `0x49`: print word
   * `ax`: word to print (reserved if `0xXX00`)
+  * Clobbers `ebx`
 
 * `0x4a`: print [byte string](structures#byte-string)
   * `ebx`: pointer to byte string to print
   * `al` after:
     * `0x00`: success
     * `0x10`: `ebx` is `0x00000000`
+  * Cobbers `ah`, `ebx`, `edx`
 
 * `0x4b`: print [word string](structures#word-string)
   * `ebx`: pointer to word string to print
   * `al` after:
     * `0x00`: success
     * `0x10`: `ebx` is `0x00000000`
+  * Clobbers `ah`, `ebx`, `edx`
 
 * `0x4c`: clear the screen
+  * Clobbers `ax`, `ebx`
 
 * `0x4d`: set color
   * `al`: color
@@ -120,6 +125,7 @@ See also [the Portland C Library](https://github.com/benjidial/portland-c-librar
 * `0x4e`: move cursor
   * `al`: row
   * `ah`: column
+  * Clobbers `ax`, `dl`
 
 * `0x4f`: reserved
 
@@ -131,6 +137,7 @@ See also [the Portland C Library](https://github.com/benjidial/portland-c-librar
     * `0x02`: blocking peek
     * `0x03`: nonblocking peek
   * `dl` after: character (undefined if nonblocking and none was available)
+  * Clobbers `ax`
 
 * `0x51`: get [string](structures#byte-string) from keyboard
   * `al`:
