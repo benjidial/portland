@@ -141,7 +141,7 @@ See also [the Portland C Library](https://github.com/benjidial/portland-c-librar
     * `0x00`: blocking
     * `0x01`: nonblocking
   * `dl` after: character (undefined if nonblocking and none was available)
-  * Clobbers: `ah`
+  * Clobbers: `bx`
 
 * `0x51`: get [string](structures#byte-string) from keyboard
   * `al`:
@@ -177,7 +177,7 @@ See also [the Portland C Library](https://github.com/benjidial/portland-c-librar
     * `0x02`: peek
     * `0x04`: skip handling (ignored if peek is set)
   * `dl` after: keycode (undefined if nonblocking and buffer is empty)
-  * Clobbers: `ax`, `dh`
+  * Clobbers: `ax`, `bx`, `dh`
 
 * `0x56`: clear keyboard buffer
   * Clobbers: nothing
