@@ -8,7 +8,9 @@ See also [the Portland C Library](https://github.com/benjidial/portland-c-librar
 * `0x50` - `0x57`: [Keyboard driver](#keyboard-driver)
 * `0x58` - `0x5f`: [Memory management](#memory-management)
 * `0x60` - `0x67`: [File device driver](#file-device-driver)
-* `0x68` - `0xff`: Reserved
+* `0x68` - `0x6f`: Reserved
+* `0x70` - `0x77`: Reserved
+* `0x78` - `0x7f`: Reserved
 
 ---
 ## PFS driver
@@ -203,16 +205,14 @@ See also [the Portland C Library](https://github.com/benjidial/portland-c-librar
 ## File device driver
 * `0x60`: get info about drive
   * `al`: drive letter
-  * `edx`: pointer to drives buffer for drive info struct
+  * `edx`: pointer to buffer for [drive info struct](../structures#drive-info)
   * `al` after:
     * `0x00`: success
     * `0x01`: I/O error
     * `0x02`: drive does not exist
     * `0x10`: `ebx` and/or `edx` are/is `0x00000000`
 
-* `0x61`: keep floppy motor on
-
-* `0x62`: don't keep floppy motor on
+* `0x61` - `0x67`: reserved
 
 ---
 **[Back to index](index)**
