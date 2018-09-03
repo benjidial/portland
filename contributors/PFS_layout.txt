@@ -1,3 +1,8 @@
+For the purposes of this document:
+* All values are little-endian
+* All characters are ASCII-encoded
+* A sector is 512 bytes
+
 Sector 0:
   504 bytes:
     Implementation specific
@@ -29,7 +34,18 @@ Sectors 1 - 15:
     Read time (UNIX)
   dword:
     Length of file in bytes
-  dword:
+  3 bytes:
     Sectors reserved for file
-  Remainder:
+  byte (flags):
+    0x01: readonly
+    0x02: system
+    0x04: executable
+    0x08: temporary
+    0x10: custom
+    0x20: custom
+    0x40: custom
+    0x80: custom
+  32 bytes:
+    reserved
+  448 bytes:
     Name of file, terminated with 0x00
