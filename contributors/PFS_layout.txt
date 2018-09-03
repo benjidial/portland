@@ -4,7 +4,7 @@ Sector 0:
   4 bytes:
     'P', 'F', 'S', ' '
   word:
-    0x0001 (Version)
+    0x0000 (Version)
   word:
     Implementation specific
 Sectors 1 - 15:
@@ -27,9 +27,9 @@ Sectors 1 - 15:
     Write time (UNIX)
   qword:
     Read time (UNIX)
-  word:
+  dword:
     Length of file in bytes
-  byte:
+  dword:
     Sectors reserved for file
   Remainder:
     Name of file, terminated with 0x00
