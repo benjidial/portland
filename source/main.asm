@@ -37,6 +37,33 @@ far_jump:
   cmp al, 0xfe
   je .kbd_resend
 
+  mov al, 0x13
+  out 0x3f5, al
+.spin1:
+  in al, 0x3f4
+  and al, 0x80
+  jz .spin1
+  xor al, al
+  out 0x3f5, al
+.spin2:
+  in al, 0x3f4
+  and al, 0x80
+  jz .spin2
+  mov al, 0x40
+  out 0x3f5, al
+.spin3:
+  in al, 0x3f4
+  and al, 0x80
+  jz .spin3
+  xor al, al
+  out 0x3f5, al
+.spin4:
+  in al, 0x3f4
+  and al, 0x80
+  jz .spin4
+  mov al, 0x94
+  out 0x4f5, al
+
   mov al, 0x11
   out 0x20, al
   out 0xa0, al

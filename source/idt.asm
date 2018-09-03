@@ -51,22 +51,22 @@ IDT_ENTRY int_null;0x1d: Intel reserved
 IDT_ENTRY int_null;0x1e: security exception
 IDT_ENTRY int_null;0x1f: FPU error
 
-IDT_ENTRY int_null;0x20: PIT
-IDT_ENTRY int_kbd ;0x21: keyboard (implemented in kbd.asm)
-IDT_ENTRY int_null;0x22: cascade
-IDT_ENTRY int_null;0x23: COM2
-IDT_ENTRY int_null;0x24: COM1
-IDT_ENTRY int_null;0x25: LPT2
-IDT_ENTRY int_null;0x26: floppy
-IDT_ENTRY int_null;0x27: LPT1
-IDT_ENTRY int_null;0x28: CMOS clock
-IDT_ENTRY int_null;0x29: peripheral
-IDT_ENTRY int_null;0x2a: peripheral
-IDT_ENTRY int_null;0x2b: peripheral
-IDT_ENTRY int_null;0x2c: mouse
-IDT_ENTRY int_null;0x2d: FPU
-IDT_ENTRY int_null;0x2e: ATA1
-IDT_ENTRY int_null;0x2f: ATA2
+IDT_ENTRY int_null  ;0x20: PIT
+IDT_ENTRY int_kbd   ;0x21: keyboard (implemented in kbd.asm)
+IDT_ENTRY int_null  ;0x22: cascade
+IDT_ENTRY int_null  ;0x23: COM2
+IDT_ENTRY int_null  ;0x24: COM1
+IDT_ENTRY int_null  ;0x25: LPT2
+IDT_ENTRY int_floppy;0x26: floppy (implemented in drives.asm)
+IDT_ENTRY int_null  ;0x27: LPT1
+IDT_ENTRY int_null  ;0x28: CMOS clock
+IDT_ENTRY int_null  ;0x29: peripheral
+IDT_ENTRY int_null  ;0x2a: peripheral
+IDT_ENTRY int_null  ;0x2b: peripheral
+IDT_ENTRY int_null  ;0x2c: mouse
+IDT_ENTRY int_null  ;0x2d: FPU
+IDT_ENTRY int_null  ;0x2e: ATA1
+IDT_ENTRY int_null  ;0x2f: ATA2
 
 times 16 IDT_ENTRY int_null;0x30 - 0x3f: portland reserved
                          ;implemented in pfs.asm
@@ -105,5 +105,14 @@ IDT_ENTRY null           ;0x5c: portland reserved
 IDT_ENTRY null           ;0x5d: portland reserved
 IDT_ENTRY null           ;0x5e: portland reserved
 IDT_ENTRY null           ;0x5f: portland reserved
+                        ;implemented in drives.asm
+IDT_ENTRY int_drive_info;0x60: get info about drive
+IDT_ENTRY int_floppy_on ;0x61: keep floppy motor on
+IDT_ENTRY int_floppy_off;0x62: don't keep floppy motor on
+IDT_ENTRY null          ;0x63: portland reserved
+IDT_ENTRY null          ;0x64: portland reserved
+IDT_ENTRY null          ;0x65: portland reserved
+IDT_ENTRY null          ;0x66: portland reserved
+IDT_ENTRY null          ;0x67: portland reserved
 
-times (0xff-0x5f) IDT_ENTRY null;0x60 - 0xff: portland reserved
+times (0xff-0x67) IDT_ENTRY null;0x68 - 0xff: portland reserved
