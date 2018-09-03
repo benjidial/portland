@@ -91,9 +91,10 @@ See also [the Portland C Library](https://github.com/benjidial/portland-c-librar
   * `edx`: pointer to [bytes string](structures#byte-string) of name of file
   * `al` after:
     * `0x00`: success
-    * `0x01`: I/O error
     * `0x02`: file does not exist
+    * `0x03`: disk in bad format
     * `0x10`: `ebx` and/or `edx` are/is `0x00000000`
+  * Clobbers: `ah`, `ecx`
 
 ## VGA driver
 * `0x48`: print byte
