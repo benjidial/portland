@@ -101,7 +101,7 @@ pfs_find_head:
   ret
 
 .short:
-   mov dword [pfs_gen], .short_loop_i
+  mov dword [pfs_gen], .short_loop_i
 
 .short_loop_o:
   test cx, 15
@@ -128,20 +128,23 @@ pfs_find_head:
   jne .loop_i
   jmp .found
 
+get_drive:
+  cmp byte [edx+1], '~'
+  je .spec
+  mov al, byte [pfs_drive]
+  ret
+.spec:
+  mov al, byte [edx]
+  add edx, 2
+  ret
+
 int_file_open:
   test ebx, ebx
   jz .bad_ptr
   test edx, edx
   jz .bad_ptr
 
-  cmp byte [edx+1], '~'
-  je .spec
-  mov al, byte [pfs_drive]
-  jmp .drive
-.spec:
-  mov al, byte [edx]
-  add edx, 2
-.drive:
+  call get_drive
 
   push ebx
   call pfs_find_head
@@ -151,15 +154,37 @@ int_file_open:
   jz .no_error
 
   mov al, ah
-  ret
+  iret
 
 .no_error:
   mov word [ebx], dword [cx+pfs_buffer];FIXME
   mov byte [ebx+2], al
   xor byte [ebx+3], byte [ebx+3]
   xor dword [ebx+4], dword [ebx+4]
-  ret
+  iret
 
 .bad_ptr:
   mov al, 0x10
-  ret
+  iret
+
+int_file_info:
+  test ebx, ebx
+  jz .bad_ptr
+  test edx, edx
+  jz .bad_ptr
+
+  call get_drive
+  push ebx
+  call pfs_find_head
+  pop ebx
+  test ah, ah
+  jz .no_error
+
+  mov al, ah
+  iret
+
+.no_error:
+  mov cx, dword [cx+pfs_buffer];FIXME
+  call pfs_read_sector
+  xor al, al
+  iret
