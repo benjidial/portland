@@ -4,8 +4,7 @@ Bootloader:
   0x8000 - 0x81ff: buffer for checking info sector of files
   Once kernel found:
     0x7e00 - 0x7fff: info to kernel
-      0x7e00 byte: disk id
-      0x7e02 word: kernel size
+      0x7e00 dword: kernel size
     0x8000 - ?: kernel code
 
 Kernel:
