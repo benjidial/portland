@@ -146,6 +146,8 @@ int_file_open:
 
   call get_drive
 
+  call ready_drive
+
   push ebx
   call pfs_find_head
   pop ebx
@@ -153,10 +155,12 @@ int_file_open:
   test ah, ah
   jz .no_error
 
+  call calm_drive
   mov al, ah
   iret
 
 .no_error:
+  call calm_drive
   mov word [ebx], dword [cx+pfs_buffer];FIXME
   mov byte [ebx+2], al
   xor byte [ebx+3], byte [ebx+3]
@@ -174,17 +178,20 @@ int_file_info:
   jz .bad_ptr
 
   call get_drive
+  call ready_drive
   push ebx
   call pfs_find_head
   pop ebx
   test ah, ah
   jz .no_error
 
+  call calm_drive
   mov al, ah
   iret
 
 .no_error:
   mov cx, dword [cx+pfs_buffer];FIXME
   call pfs_read_sector
+  call calm_drive
   xor al, al
   iret

@@ -107,8 +107,8 @@ IDT_ENTRY null           ;0x5e: portland reserved
 IDT_ENTRY null           ;0x5f: portland reserved
                         ;implemented in drives.asm
 IDT_ENTRY int_drive_info;0x60: get info about drive
-IDT_ENTRY int_floppy_on ;0x61: keep floppy motor on
-IDT_ENTRY int_floppy_off;0x62: don't keep floppy motor on
+IDT_ENTRY null          ;0x61: portland reserved
+IDT_ENTRY null          ;0x62: portland reserved
 IDT_ENTRY null          ;0x63: portland reserved
 IDT_ENTRY null          ;0x64: portland reserved
 IDT_ENTRY null          ;0x65: portland reserved
