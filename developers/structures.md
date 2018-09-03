@@ -16,12 +16,15 @@ myString db "this is a string", 0;NASM
 ```
 
 ## File
-A 8-byte structure used in calls to `file_read` and `file_write`.  Use `file_open` or `file_create` to get one.
+A 16-byte structure used in calls to `file_read` and `file_write`.  Use `file_open` or `file_create` to get one.
 ```C
 struct {
-  uint16_t header_sector_number;
+  uint32_t handle_no;
+  uint32_t payload_sector_number;
+  uint32_t file_size;
   uint8_t storage_device_id;
-  uint8_t reserved[5];
+  uint8_t flags;
+  uint16_t reserved;
 }
 ```
 
