@@ -140,7 +140,8 @@ See also [the Portland C Library](https://github.com/benjidial/portland-c-librar
   * `al`:
     * `0x00`: blocking
     * `0x01`: nonblocking
-  * `dl` after: character (undefined if nonblocking and none was available)
+  * `dl` after: character
+    * undefined if nonblocking and none was available
   * Clobbers: `bx`
 
 * `0x51`: get [string](structures#byte-string) from keyboard
@@ -176,7 +177,8 @@ See also [the Portland C Library](https://github.com/benjidial/portland-c-librar
     * `0x01`: nonblocking
     * `0x02`: peek
     * `0x04`: skip handling (ignored if peek is set)
-  * `dl` after: keycode (undefined if nonblocking and buffer is empty)
+  * `dl` after: keycode
+    * undefined if nonblocking and buffer is empty
   * Clobbers: `ax`, `bx`, `dh`
 
 * `0x56`: clear keyboard buffer
@@ -187,7 +189,8 @@ See also [the Portland C Library](https://github.com/benjidial/portland-c-librar
 ## Memory managerment
 * `0x58`: allocate memory
   * `ax`: number of bytes to allocate
-  * `ebx` after: pointer to allocated memory (`0x00000000` not enough memory or if `ax` is `0x0000`)
+  * `ebx` after: pointer to allocated memory
+    * `0x00000000` if not enough memory or if `ax` is `0x0000`
 
 * `0x59`: deallocate memory
   * `ebx`: pointer to allocated memory
@@ -205,12 +208,12 @@ See also [the Portland C Library](https://github.com/benjidial/portland-c-librar
 ## Storage driver
 * `0x60`: get info about drive
   * `al`: drive letter
-  * `edx`: pointer to buffer for [drive info struct](../structures#drive-info)
+  * `ebx`: pointer to buffer for [drive info struct](../structures#drive-info)
+    * `0x00000000` if drive does not exist
   * `al` after:
     * `0x00`: success
-    * `0x01`: I/O error
     * `0x02`: drive does not exist
-    * `0x10`: `ebx` and/or `edx` are/is `0x00000000`
+    * `0x10`: `ebx` is `0x00000000`
 
 * `0x61`: refresh drive info
 
