@@ -24,11 +24,12 @@ A 20-byte structure representing information about a drive, and returned by `dri
 ```C
 struct {
   uint8_t fs_type;
-    //0x00: unknown
-    //0x01: PFS
-    //0x02: tar
-    //0x03: ext2
-    //0x04 - 0xff: reserved
+    //0x00: no drive
+    //0x01: unknown
+    //0x02: PFS
+    //0x03: tar
+    //0x04: ext2
+    //0x05 - 0xff: reserved
   uint8_t reserved[3];
   uint32_t total_sectors;
   uint32_t used_sectors;
