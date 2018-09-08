@@ -7,7 +7,7 @@ See also [the Portland C Library](https://github.com/benjidial/portland-c-librar
 * `0x48` - `0x4f`: [VGA driver](#vga-driver)
 * `0x50` - `0x57`: [Keyboard driver](#keyboard-driver)
 * `0x58` - `0x5f`: [Memory management](#memory-management)
-* `0x60` - `0x67`: [File device driver](#file-device-driver)
+* `0x60` - `0x67`: [Storage driver](#storage-driver)
 * `0x68` - `0x6f`: Reserved
 * `0x70` - `0x77`: Reserved
 * `0x78` - `0x7f`: Reserved
@@ -202,7 +202,7 @@ See also [the Portland C Library](https://github.com/benjidial/portland-c-librar
 
 * `0x5b` - `0x5f`: reserved
 
-## File device driver
+## Storage driver
 * `0x60`: get info about drive
   * `al`: drive letter
   * `edx`: pointer to buffer for [drive info struct](../structures#drive-info)
@@ -212,7 +212,9 @@ See also [the Portland C Library](https://github.com/benjidial/portland-c-librar
     * `0x02`: drive does not exist
     * `0x10`: `ebx` and/or `edx` are/is `0x00000000`
 
-* `0x61` - `0x67`: reserved
+* `0x61`: refresh drive info
+
+* `0x62` - `0x67`: reserved
 
 ---
 **[Back to index](index)**
