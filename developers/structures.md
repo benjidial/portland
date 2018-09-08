@@ -1,7 +1,11 @@
 # Structures
 ## Listing
+* [Byte string](#byte-string)
+* [Drive info](#drive-info)
 * [File](#file)
+* [File info](#file-info)
 * [Keycode](#keycode)
+* [Word string](#word-string)
 
 ---
 ## Byte string
@@ -13,6 +17,22 @@ uint8_t *myString = "this is a string";//C and C++
 ```
 ```Assembly
 myString db "this is a string", 0;NASM
+```
+
+## Drive info
+A 20-byte structure representing information about a drive, and returned by `drive_info`.
+```C
+struct {
+  uint8_t fs_type;
+    //0x00: unknown
+    //0x01: PFS
+    //0x02: tar
+    //0x03: ext2
+    //0x04 - 0xff: reserved
+  uint8_t reserved[3];
+  uint32_t total_sectors;
+  uint32_t used_sectors;
+}
 ```
 
 ## File
