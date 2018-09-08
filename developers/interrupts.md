@@ -209,11 +209,11 @@ See also [the Portland C Library](https://github.com/benjidial/portland-c-librar
 * `0x60`: get info about drive
   * `al`: drive letter
   * `ebx`: pointer to buffer for [drive info struct](../structures#drive-info)
-    * `0x00000000` if drive does not exist
   * `al` after:
     * `0x00`: success
     * `0x02`: drive does not exist
     * `0x10`: `ebx` is `0x00000000`
+  * Clobbers: `ax`, `edx`
 
 * `0x61`: refresh drive info
 
