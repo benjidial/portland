@@ -24,7 +24,7 @@ A 20-byte structure representing information about a drive, and returned by `dri
 ```C
 struct {
   uint8_t fs_type;
-    //0x00: no drive
+    //0x00: reserved
     //0x01: unknown
     //0x02: PFS
     //0x03: tar
