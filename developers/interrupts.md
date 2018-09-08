@@ -3,7 +3,7 @@
 See also [the Portland C Library](https://github.com/benjidial/portland-c-library).  The inline assembly shows examples of how to call these from assembly, and using the library makes calling these from C much easier and less bulky.
 
 ## Listing
-* `0x40` - `0x47`: [PFS driver](#pfs-driver)
+* `0x40` - `0x47`: [FS driver](#fs-driver)
 * `0x48` - `0x4f`: [VGA driver](#vga-driver)
 * `0x50` - `0x57`: [Keyboard driver](#keyboard-driver)
 * `0x58` - `0x5f`: [Memory management](#memory-management)
@@ -13,42 +13,40 @@ See also [the Portland C Library](https://github.com/benjidial/portland-c-librar
 * `0x78` - `0x7f`: Reserved
 
 ---
-## PFS driver
+## FS driver
 * `0x40`: read from a file
-  * `ax`: starting position in file
-  * `ebx`: pointer to [file structure](../structures#file)
+  * `eax`: file handle
+  * `bx`: starting position in file
   * `cx`: number of bytes to read
   * `edx`: pointer to buffer to read into
   * `al` after:
     * `0x00`: success
     * `0x01`: I/O error
-    * `0x02`: corrupted file structure or file was deleted
-    * `0x10`: `ebx` and/or `edx` are/is `0x00000000`
+    * `0x02`: bad file handle
+    * `0x10`: `edx` is `0x00000000`
     * `0x11`: file not that big
 
 * `0x41`: write to a file
-  * `ax`: starting position in file
-  * `ebx`: pointer to [file structure](structures#file)
+  * `eax`: file handle
+  * `bx`: starting position in file
   * `cx`: number of bytes to write
   * `edx`: pointer to buffer to read from
   * `al` after:
     * `0x00`: success
     * `0x01`: I/O error
-    * `0x02`: corrupted file structure or file was deleted
-    * `0x10`: `ebx` and/or `edx` are/is `0x00000000`
-    * `0x11`: file not that big
+    * `0x02`: bad file handle
+    * `0x10`: `edx` is `0x00000000`
 
 * `0x42`: create and open a file
-  * `al`: number of reserved sectors
-  * `ebx`: pointer to buffer for [file structure](structures#file)
-  * `cx`: size of file in bytes
+  * `ebx`: pointer to [file creation parameters](structures#file-creation-parameters)
   * `edx`: pointer to [byte string](structures#byte-string) of name of file
   * `al` after:
     * `0x00`: success
     * `0x01`: I/O error
     * `0x02`: not enough room on drive
     * `0x10`: `ebx` and/or `edx` are/is `0x00000000`
-    * `0x11`: `cx` > `al` \* 512
+    * `0x11`: invalid file creation parameters
+  * `eax` after: file handle
 
 * `0x43`: open a file
   * `ebx`: pointer to buffer for [file structure](structures#file)
