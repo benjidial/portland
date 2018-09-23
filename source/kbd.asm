@@ -1,9 +1,8 @@
-;Portland keyboard-related ISR handlers
+;Portland kernel keyboard
 ;Copyright 2018 Benji Dial
 ;Under GNU GPL v3.0
 
-kbd_scan_table:
-  incbin "scan_table.bin"
+kbd_scan_table incbin "scan_tables.bin"
 
 kbd_mods_and_togs dw 0x0000
 ;0x8000 - lshift
@@ -28,32 +27,36 @@ kbd_buffer_next db 0x00
 kbd_buffer_size db 0x00
 
 int_kbd:
-  push ax
+  push al
+  push bx
+  xor bh, bh
   in al, 0x60
-  cmp al, 0xe0
+  mov bl, al
+  cmp bl, 0xe0
   je .e0
-  cmp al, 0xe1
+  cmp bl, 0xe1
   je .pause
-  cmp al, 0x7f
+  cmp bl, 0x7f
   jg .rel
-  mov al, [al+kbd_scan_table]
+  mov al, [bx+kbd_scan_table]
   jmp .got_code
 .rel:
-  mov al, [al+kbd_scan_table-128]
+  mov bl, [bx+kbd_scan_table-128]
   or al, 0x80
   jmp .got_code
 .e0:
   in al, 0x60
-  cmp al, 0x2a
+  mov bl, al
+  cmp bl, 0x2a
   je .psp
-  cmp al, 0xb7
+  cmp bl, 0xb7
   je .psr
-  cmp al, 0x7f
+  cmp bl, 0x7f
   jg .e0_rel
-  mov al, [al+kbd_scan_table+128]
+  mov al, [bx+kbd_scan_table+128]
   jmp .got_code
 .e0_rel:
-  mov al, [al+kbd_scan_table]
+  mov al, [bx+kbd_scan_table]
   jmp .got_code
 .pause:
   TODO
@@ -69,14 +72,15 @@ int_kbd:
 .got_code:
   cmp byte [kbd_buffer_size], 0xff
   je .leave_early
-  mov ah, [kbd_buffer_next]
-  add ah, [kbd_buffer_size]
-  mov [ah+kbd_buffer], al
+  mov bl, [kbd_buffer_next]
+  add bl, [kbd_buffer_size]
+  mov [bx+kbd_buffer], al
   inc byte [kbd_buffer_size]
 .leave_early:
   mov al, 0x20
   out 0x20, al
-  pop ax
+  pop bx
+  pop al
   iret
 
 kbd_handle_dl:
@@ -211,18 +215,19 @@ kbd_handle_dl:
   ret
 
 int_kbd_char:
-  mov ah, [kbd_buffer_next]
-  and al, 0x01
+  xor bh, bh
+  mov bl, byte [kbd_buffer_next]
+  test al, al
   jnz .no_spin
 .spin:
-  cmp byte [kbd_buffer_size], 0x00
-  je .spin
+  test byte [kbd_buffer_size], byte [kbd_buffer_size]
+  jz .spin
 .no_spin:
-  mov dl, [al+kbd_buffer]
-  inc al
+  mov dl, byte [bx+kbd_buffer]
+  inc bl
   inc byte [kbd_buffer_next]
-  cmp byte [kbd_buffer_size], 0x00
-  je .no_dec
+  test byte [kbd_buffer_size], byte [kbd_buffer_size]
+  jz .no_dec
   dec byte [kbd_buffer_size]
   cmp dl, 0x74
   jl .no_dec
@@ -241,28 +246,30 @@ int_kbd_char:
   jz .spin
   jmp .no_spin
 .got_char:
-  cmp dl, 0x30
+  xchg bl, dl
+  cmp bl, 0x30
   jl .shiftable
-  cmp dl, 0x40
+  cmp bl, 0x40
   jl .numpad
-  mov dl, [dl+kbd_scan_table+256]
+  mov dl, byte [bx+kbd_scan_table+256]
   iret
 .shiftable:
-  test [kbd_mods_and_togs+1], 0x82
+  test byte [kbd_mods_and_togs+1], 0x82
   jz .unmod
-  mov dl, [dl+kbd_scan_table+324]
+  mov dl, byte [bx+kbd_scan_table+324]
   iret
 .unmod:
-  mov dl, [dl+kbd_scan_table+256]
+  mov dl, byte [bx+kbd_scan_table+256]
   iret
 .numpad:
-  test [kbd_mods_and_togs+1], 0x01
+  test byte [kbd_mods_and_togs+1], 0x01
   jnz .num
+  mov bl, dl
   test al, al
   jz .spin
   jmp .no_spin
 .num:
-  mov dl, [dl+kbd_scan_table+324]
+  mov dl, byte [bx+kbd_scan_table+324]
   iret
 
 int_kbd_code:
@@ -271,16 +278,17 @@ int_kbd_code:
   and al, 0x01
   jnz .no_spin
 .spin:
-  cmp byte [kbd_buffer_size], 0x00
-  je .spin
+  test byte byte [kbd_buffer_size], byte [kbd_buffer_size]
+  jz .spin
 .no_spin:
-  mov al, [kbd_buffer_next]
-  mov dl, [al+kbd_buffer]
+  xor bh, bh
+  mov bl, byte [kbd_buffer_next]
+  mov dl, byte [bx+kbd_buffer]
   and ah, 0x02
   jnz .peek
   inc byte [kbd_buffer_next]
-  cmp byte [kbd_buffer_size], 0x00
-  je .peek
+  test byte [kbd_buffer_size], byte [kbd_buffer_size]
+  jz .peek
   dec byte [kbd_buffer_size]
   and dh, 0x04
   jnz .peek

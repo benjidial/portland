@@ -1,4 +1,4 @@
-;Portland VGA-related ISR handlers
+;Portland kernel VGA
 ;Copyright 2018 Benji Dial
 ;Under GNU GPL v3.0
 

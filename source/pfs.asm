@@ -1,22 +1,14 @@
-;Portland file system-related ISR handlers
+;Portland kernel PFS
 ;Copyright 2018 Benji Dial
 ;Under GNU GPL v3.0
 
   bits 32
 
-pfs_buffer resb 512
-pfs_drive resb 1
-pfs_gen resd 1
-
-;al - drive letter
-;cx - sector number
-;ebx - buffer pointer
-pfs_read_sector:
-  ;TODO
-  ret
-
-pfs_write_sector:
-  ;TODO
+pfs_inventory:
+  xor ecx, ecx
+  mov ebx, sector_buffer
+  call read_sector
+  
   ret
 
 ;al - drive letter
@@ -24,28 +16,28 @@ pfs_write_sector:
 ;ebx out - success - 0:cx out
 ;          not found - clobber
 ;          bad disk format - pfs_buffer+512
-;ecx out - success - sector:address in index
-;          not found - perserve:clobber
-;          bad disk format - perserve:15
+;ecx out - success - sector:byte in index
+;          not found - 0:clobber
+;          bad disk format - 15
 ;ah  out - 0 - success
 ;          2 - not found
 ;          3 - bad disk format
 pfs_find_head:
-  xor cx, cx
+  xor ecx, ecx
   test byte [edx+1], byte [edx+1]
-  jz .short
+  jz .short_loop_o
   test byte [edx+2], byte [edx+2]
-  jz .short
-
-  mov dword [pfs_gen], .loop_i
+  jz .short_loop_o
+  test byte [edx+3], byte [edx+3]
+  jz .four
 
 .loop_o:
-  test cx, 15
+  test cl, 15
   je .bad_format
 
   mov ebx, pfs_buffer
-  inc cx
-  call pfs_read_sector
+  inc cl
+  call read_sector
 
 .loop_i:
   test ebx, pfs_buffer+512
@@ -58,27 +50,26 @@ pfs_find_head:
   jne .loop_i
 
 .maybe_found:
-  push cx
+  push ecx
   push ebx
   push edx
-  mov cx, dword [ebx-8];FIXME
-  mov ebx, pfs_buffer
+  mov ecx, dword [ebx-8]
+  xor ebx, ebx
 
-  call pfs_read_sector
+  call read_sector
 
-  add ebx, 26
   dec edx
 .name_loop:
   inc ebx
   inc edx
-  test byte [ebx], byte [edx]
+  test byte [ebx+pfs_buffer+3], byte [edx+3]
   jne .false_alarm
   test byte [ebx], byte [ebx]
   jnz .name_loop
 
   pop edx
   pop ebx
-  pop cx
+  pop ecx
 .found:
   shl ecx, 16
   sub ebx, pfs_buffer+8
@@ -89,8 +80,8 @@ pfs_find_head:
 .false_alarm:
   pop edx
   pop ebx
-  pop cx
-  jmp dword [pfs_gen]
+  pop ecx
+  jmp .loop_o
 
 .not_found:
   mov ah, 2
@@ -100,16 +91,13 @@ pfs_find_head:
   mov ah, 3
   ret
 
-.short:
-  mov dword [pfs_gen], .short_loop_i
-
 .short_loop_o:
-  test cx, 15
+  test cl, 15
   je .bad_format
 
   mov ebx, pfs_buffer
-  inc cx
-  call pfs_read_sector
+  inc cl
+  call read_sector
 
 .short_loop_i:
   test ebx, pfs_buffer+512
@@ -119,24 +107,33 @@ pfs_find_head:
   add ebx, 8
 
   test byte [ebx-4], byte [edx]
-  jne .loop_i
+  jne .short_loop_i
   test byte [ebx-3], byte [edx+1]
-  jne .loop_i
+  jne .short_loop_i
   test byte [edx+1], byte [edx+1]
   jz .found
   test byte [ebx-2], byte [edx+2]
-  jne .loop_i
+  jne .short_loop_i
   jmp .found
 
-get_drive:
-  cmp byte [edx+1], '~'
-  je .spec
-  mov al, byte [pfs_drive]
-  ret
-.spec:
-  mov al, byte [edx]
-  add edx, 2
-  ret
+.four:
+  test cl, 15
+  je .bad_format
+
+  mov ebx, pfs_buffer
+  inc cl
+  call read_sector
+
+.four_li:
+  test ebx, pfs_buffer+512
+  je .four
+  test dword [ebx], dword [ebx]
+  jz .not_found
+  add ebx, 8
+
+  test dword [ebx-4], dword [edx]
+  je .found
+  jmp .four_li
 
 int_file_open:
   test ebx, ebx
@@ -144,24 +141,19 @@ int_file_open:
   test edx, edx
   jz .bad_ptr
 
-  call get_drive
-
   call ready_drive
-
   push ebx
   call pfs_find_head
   pop ebx
-
+  call calm_drive
   test ah, ah
   jz .no_error
 
-  call calm_drive
   mov al, ah
   iret
 
 .no_error:
-  call calm_drive
-  mov word [ebx], dword [cx+pfs_buffer];FIXME
+  mov dword [ebx], dword [cx+pfs_buffer];FIXME
   mov byte [ebx+2], al
   xor byte [ebx+3], byte [ebx+3]
   xor dword [ebx+4], dword [ebx+4]
@@ -177,7 +169,6 @@ int_file_info:
   test edx, edx
   jz .bad_ptr
 
-  call get_drive
   call ready_drive
   push ebx
   call pfs_find_head
@@ -191,7 +182,7 @@ int_file_info:
 
 .no_error:
   mov cx, dword [cx+pfs_buffer];FIXME
-  call pfs_read_sector
+  call read_sector
   call calm_drive
   xor al, al
   iret

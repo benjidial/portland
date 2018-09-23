@@ -1,10 +1,12 @@
-;Portland IDT
+;Portland kernel IDT
 ;Copyright 2018 Benji Dial
 ;Under GNU GPL v3.0
 
 null:
   iret
 
+%include "flp.asm"
+%include "storage.asm"
 %include "pfs.asm"
 %include "vga.asm"
 %include "kbd.asm"
@@ -57,7 +59,7 @@ IDT_ENTRY int_null  ;0x22: cascade
 IDT_ENTRY int_null  ;0x23: COM2
 IDT_ENTRY int_null  ;0x24: COM1
 IDT_ENTRY int_null  ;0x25: LPT2
-IDT_ENTRY int_floppy;0x26: floppy (implemented in drives.asm)
+IDT_ENTRY int_floppy;0x26: floppy (implemented in flp.asm)
 IDT_ENTRY int_null  ;0x27: LPT1
 IDT_ENTRY int_null  ;0x28: CMOS clock
 IDT_ENTRY int_null  ;0x29: peripheral
@@ -105,14 +107,14 @@ IDT_ENTRY null           ;0x5c: portland reserved
 IDT_ENTRY null           ;0x5d: portland reserved
 IDT_ENTRY null           ;0x5e: portland reserved
 IDT_ENTRY null           ;0x5f: portland reserved
-                        ;implemented in drives.asm
-IDT_ENTRY int_drive_info;0x60: get info about drive
-IDT_ENTRY null          ;0x61: portland reserved
-IDT_ENTRY null          ;0x62: portland reserved
-IDT_ENTRY null          ;0x63: portland reserved
-IDT_ENTRY null          ;0x64: portland reserved
-IDT_ENTRY null          ;0x65: portland reserved
-IDT_ENTRY null          ;0x66: portland reserved
-IDT_ENTRY null          ;0x67: portland reserved
+                               ;implemented in storage.asm
+IDT_ENTRY int_drive_info       ;0x60: get info about drive
+IDT_ENTRY int_storage_inventory;0x61: refresh drive info
+IDT_ENTRY null                 ;0x62: portland reserved
+IDT_ENTRY null                 ;0x63: portland reserved
+IDT_ENTRY null                 ;0x64: portland reserved
+IDT_ENTRY null                 ;0x65: portland reserved
+IDT_ENTRY null                 ;0x66: portland reserved
+IDT_ENTRY null                 ;0x67: portland reserved
 
 times (0xff-0x67) IDT_ENTRY null;0x68 - 0xff: portland reserved

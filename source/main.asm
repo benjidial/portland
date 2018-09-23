@@ -38,31 +38,30 @@ far_jump:
   je .kbd_resend
 
   mov al, 0x13
-  out 0x3f5, al
-.spin1:
-  in al, 0x3f4
-  and al, 0x80
-  jz .spin1
+  out 0x03f5, al
   xor al, al
-  out 0x3f5, al
-.spin2:
-  in al, 0x3f4
-  and al, 0x80
-  jz .spin2
-  mov al, 0x40
-  out 0x3f5, al
-.spin3:
-  in al, 0x3f4
-  and al, 0x80
-  jz .spin3
+  out 0x03f5, al
+  or al, 0x57
+  out 0x03f5, al
   xor al, al
-  out 0x3f5, al
-.spin4:
-  in al, 0x3f4
-  and al, 0x80
-  jz .spin4
-  mov al, 0x94
-  out 0x4f5, al
+  out 0x03f5, al
+  or al, 0x94
+  out 0x03f5, al
+  xor al, al
+  out 0x03f2, al
+  or al, 0x0c
+  out 0x03f2, al
+  call flp_wait
+  xor al, al
+  out 0x03f7, al
+  or al, 0x1c
+  out 0x03f2, al
+  ;TODO: Wait for drive to spin up
+  xor al, 0x1b
+  out 0x03f5, al
+  xor al, al
+  out 0x03f5, al
+  call flp_wait
 
   mov al, 0x11
   out 0x20, al
@@ -79,6 +78,8 @@ far_jump:
   out 0x21, al
   out 0xa1, al
   lidt [idt_index]
+
+  int 0x61
 
   mov ebx, shell_msg
   int 0x4a
@@ -100,9 +101,9 @@ no_shell:
   int 0x4a
   jmp hlt
 
-shell_msg db "Launching shell...", 0
-shell_name db "shell", 0
-no_shell_msg db 10, "Could not find shell.  Halting.", 0
+shell_msg db "Launching a~shell...", 0
+shell_name db "a~shell", 0
+no_shell_msg db 10, "Could not find a~shell.  Halting.", 0
 shutdown_msg db "You may now power off your computer.", 0
 
 gdt:
