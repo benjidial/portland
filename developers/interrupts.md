@@ -58,14 +58,7 @@ See also [the Portland C Library](https://github.com/benjidial/portland-c-librar
     * `0x10`: `ebx` and/or `edx` are/is `0x00000000`
   * Clobbers: `ah`, `ecx`
 
-* `0x44`: resize a file
-  * `al`: number of reserved sectors
-  * `cx`: size in bytes
-  * `al` after:
-    * `0x00`: success
-    * `0x01`: I/O error
-    * `0x02`: not enough room on drive
-    * `0x10`: `cx` > `al` \* 512
+* `0x44`: reserved
 
 * `0x45`: delete a file
   * `ebx`: pointer to [bytes string](structures#byte-string) of name of file
